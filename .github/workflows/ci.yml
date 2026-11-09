@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: backend } }
+    strategy:
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with: { python-version: "${{ matrix.python }}", enable-cache: true }
+      - run: uv sync --frozen
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy src
+      - run: uv run pytest --cov=catmod --cov-report=term-missing
+      - name: Contract drift (JSON Schema + OpenAPI)
+        if: matrix.python == '3.12'
+        run: |
+          uv run catmod export-schemas --out ../schemas
+          git diff --exit-code -- ../schemas || { echo "::error::schemas/ out of date — run 'make schemas'"; exit 1; }
+
+  web:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: web } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: web/package-lock.json }
+      - run: npm ci
+      - name: Generated API types in sync
+        run: |
+          npm run gen:api
+          git diff --exit-code -- src/api/schema.d.ts || { echo "::error::web types out of date — run 'make schemas'"; exit 1; }
+      - run: npm run build
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: [backend, web]
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose build
+      - name: Smoke test
+        run: |
+          docker compose up -d
+          for i in $(seq 1 30); do curl -fs localhost:8080/health && break; sleep 2; done
+          curl -fs -X POST localhost:8080/api/v1/portfolios -H 'content-type: application/json' \
+            -d '{"preset":"us-cat-demo","n_locations":5000}' | python3 -c "import json,sys; assert json.load(sys.stdin)['summary']['n_locations']==5000"
+      - if: always()
+        run: docker compose logs && docker compose down -v

@@ -1,0 +1,16 @@
+services:
+  api:
+    build: { context: ., dockerfile: docker/api.Dockerfile }
+    environment:
+      CATMOD_CORS_ORIGINS: http://localhost:8080
+    volumes:
+      - catmod-data:/data
+    ports: ["8000:8000"]
+
+  web:
+    build: { context: ., dockerfile: docker/web.Dockerfile }
+    depends_on: [api]
+    ports: ["8080:80"]
+
+volumes:
+  catmod-data:

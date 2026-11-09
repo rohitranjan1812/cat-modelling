@@ -1,0 +1,405 @@
+{
+  "$defs": {
+    "Accounts": {
+      "additionalProperties": false,
+      "description": "Commercial schedules: account size - 1 ~ Lomax(alpha) scaled to the requested mean.",
+      "properties": {
+        "attachment_ratio": {
+          "default": [
+            0.0,
+            0.05
+          ],
+          "description": "Layer attachment as a fraction of account TIV",
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Attachment Ratio",
+          "type": "array"
+        },
+        "commercial_mean_locations": {
+          "default": 6.0,
+          "exclusiveMinimum": 1,
+          "title": "Commercial Mean Locations",
+          "type": "number"
+        },
+        "limit_ratio": {
+          "default": [
+            0.3,
+            1.0
+          ],
+          "description": "Layer limit as a fraction of account TIV",
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Limit Ratio",
+          "type": "array"
+        },
+        "participation": {
+          "default": [
+            0.25,
+            1.0
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Participation",
+          "type": "array"
+        },
+        "size_tail_alpha": {
+          "default": 1.6,
+          "description": "Pareto tail index of size",
+          "exclusiveMinimum": 1,
+          "title": "Size Tail Alpha",
+          "type": "number"
+        }
+      },
+      "title": "Accounts",
+      "type": "object"
+    },
+    "Hub": {
+      "additionalProperties": false,
+      "description": "A population centre around which locations are scattered.\n\nRadial distance from the centre follows Clark's exponential urban density law\nD(r) = D0 exp(-r/s). In 2-D the radial pdf is proportional to r exp(-r/s), i.e.\nr ~ Gamma(shape=2, scale=s), so ``scale_km`` is the density decay length s.",
+      "properties": {
+        "construction_override": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            "type": "object"
+          },
+          "description": "Per-occupancy construction mix overriding the global one at this hub",
+          "title": "Construction Override",
+          "type": "object"
+        },
+        "country": {
+          "default": "US",
+          "pattern": "^[A-Z]{2}$",
+          "title": "Country",
+          "type": "string"
+        },
+        "ded_pct_tiv": {
+          "default": 0.02,
+          "description": "Location deductible, %TIV",
+          "maximum": 0.5,
+          "minimum": 0,
+          "title": "Ded Pct Tiv",
+          "type": "number"
+        },
+        "lat": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Lon",
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "perils": {
+          "description": "OED peril codes covered at this hub",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Perils",
+          "type": "array"
+        },
+        "scale_km": {
+          "default": 12.0,
+          "description": "Density decay length (km)",
+          "exclusiveMinimum": 0,
+          "maximum": 500,
+          "title": "Scale Km",
+          "type": "number"
+        },
+        "value_index": {
+          "default": 1.0,
+          "description": "Replacement-cost multiplier",
+          "exclusiveMinimum": 0,
+          "title": "Value Index",
+          "type": "number"
+        },
+        "weight": {
+          "description": "Relative share of portfolio locations at this hub",
+          "exclusiveMinimum": 0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "lat",
+        "lon",
+        "weight",
+        "perils"
+      ],
+      "title": "Hub",
+      "type": "object"
+    },
+    "OccupancyClass": {
+      "additionalProperties": false,
+      "properties": {
+        "bi_ratio": {
+          "description": "Mean BI TIV / building TIV",
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Bi Ratio",
+          "type": "number"
+        },
+        "code": {
+          "title": "Code",
+          "type": "integer"
+        },
+        "construction": {
+          "additionalProperties": {
+            "exclusiveMinimum": 0,
+            "type": "number"
+          },
+          "title": "Construction",
+          "type": "object"
+        },
+        "contents_ratio": {
+          "description": "Mean contents TIV / building TIV",
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Contents Ratio",
+          "type": "number"
+        },
+        "personal_lines": {
+          "default": false,
+          "description": "Each location is its own single-location account",
+          "title": "Personal Lines",
+          "type": "boolean"
+        },
+        "storeys": {
+          "$ref": "#/$defs/Storeys"
+        },
+        "value_per_storey": {
+          "description": "Median building value per storey",
+          "exclusiveMinimum": 0,
+          "title": "Value Per Storey",
+          "type": "number"
+        },
+        "value_sigma": {
+          "default": 0.5,
+          "description": "Lognormal sigma of value",
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Value Sigma",
+          "type": "number"
+        },
+        "weight": {
+          "exclusiveMinimum": 0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "code",
+        "weight",
+        "construction",
+        "storeys",
+        "value_per_storey",
+        "contents_ratio",
+        "bi_ratio"
+      ],
+      "title": "OccupancyClass",
+      "type": "object"
+    },
+    "Storeys": {
+      "additionalProperties": false,
+      "description": "Storey count = min + Geometric(p) - 1, truncated at max.",
+      "properties": {
+        "max": {
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Max",
+          "type": "integer"
+        },
+        "min": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Min",
+          "type": "integer"
+        },
+        "p": {
+          "description": "Geometric success probability",
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "P",
+          "type": "number"
+        }
+      },
+      "required": [
+        "p",
+        "max"
+      ],
+      "title": "Storeys",
+      "type": "object"
+    },
+    "YearBuilt": {
+      "additionalProperties": false,
+      "properties": {
+        "max": {
+          "default": 2026,
+          "title": "Max",
+          "type": "integer"
+        },
+        "mean": {
+          "default": 1985,
+          "title": "Mean",
+          "type": "number"
+        },
+        "min": {
+          "default": 1850,
+          "title": "Min",
+          "type": "integer"
+        },
+        "sd": {
+          "default": 20,
+          "minimum": 0,
+          "title": "Sd",
+          "type": "number"
+        }
+      },
+      "title": "YearBuilt",
+      "type": "object"
+    }
+  },
+  "$id": "https://github.com/rohitranjan1812/cat-modelling/schemas/portfolio-config.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Top-level synthetic portfolio specification.",
+  "properties": {
+    "accounts": {
+      "$ref": "#/$defs/Accounts",
+      "default": {
+        "attachment_ratio": [
+          0.0,
+          0.05
+        ],
+        "commercial_mean_locations": 6.0,
+        "limit_ratio": [
+          0.3,
+          1.0
+        ],
+        "participation": [
+          0.25,
+          1.0
+        ],
+        "size_tail_alpha": 1.6
+      }
+    },
+    "currency": {
+      "default": "USD",
+      "pattern": "^[A-Z]{3}$",
+      "title": "Currency",
+      "type": "string"
+    },
+    "h3_resolutions": {
+      "default": [
+        5,
+        7
+      ],
+      "items": {
+        "type": "integer"
+      },
+      "minItems": 1,
+      "title": "H3 Resolutions",
+      "type": "array"
+    },
+    "hubs": {
+      "items": {
+        "$ref": "#/$defs/Hub"
+      },
+      "minItems": 1,
+      "title": "Hubs",
+      "type": "array"
+    },
+    "n_locations": {
+      "maximum": 5000000,
+      "minimum": 1,
+      "title": "N Locations",
+      "type": "integer"
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "occupancies": {
+      "items": {
+        "$ref": "#/$defs/OccupancyClass"
+      },
+      "minItems": 1,
+      "title": "Occupancies",
+      "type": "array"
+    },
+    "portfolio_number": {
+      "default": "P1",
+      "minLength": 1,
+      "title": "Portfolio Number",
+      "type": "string"
+    },
+    "seed": {
+      "default": 42,
+      "minimum": 0,
+      "title": "Seed",
+      "type": "integer"
+    },
+    "urban_value_uplift": {
+      "default": 0.5,
+      "description": "Value premium at the hub core, decaying with exp(-r/s)",
+      "minimum": 0,
+      "title": "Urban Value Uplift",
+      "type": "number"
+    },
+    "year_built": {
+      "$ref": "#/$defs/YearBuilt",
+      "default": {
+        "max": 2026,
+        "mean": 1985.0,
+        "min": 1850,
+        "sd": 20.0
+      }
+    }
+  },
+  "required": [
+    "name",
+    "n_locations",
+    "hubs",
+    "occupancies"
+  ],
+  "title": "PortfolioConfig",
+  "type": "object"
+}

@@ -1,0 +1,85 @@
+# yaml-language-server: $schema=../../../../schemas/portfolio-config.schema.json
+# Demo US portfolio: West Coast earthquake + Gulf/Atlantic tropical cyclone exposure.
+name: US cat demo
+seed: 42
+n_locations: 50000
+currency: USD
+portfolio_number: P1
+
+hubs:
+  # --- Earthquake (QEQ): CA deductibles are typically 10-15% of TIV
+  - {name: Los Angeles,   lat: 34.0522, lon: -118.2437, weight: 0.20, scale_km: 22, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.30}
+  - {name: San Francisco, lat: 37.7749, lon: -122.4194, weight: 0.12, scale_km: 14, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.60}
+  - {name: San Diego,     lat: 32.7157, lon: -117.1611, weight: 0.06, scale_km: 12, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.20}
+  - {name: Seattle,       lat: 47.6062, lon: -122.3321, weight: 0.07, scale_km: 12, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.25}
+  # --- Tropical cyclone (WTC): hurricane deductibles typically 2-5% of TIV
+  - name: Miami
+    lat: 25.7617
+    lon: -80.1918
+    weight: 0.16
+    scale_km: 15
+    perils: [WTC]
+    ded_pct_tiv: 0.02
+    value_index: 1.10
+    construction_override:
+      1051: {5100: 0.75, 5050: 0.20, 5150: 0.05}   # Florida SFD: concrete-block masonry
+  - name: Tampa
+    lat: 27.9506
+    lon: -82.4572
+    weight: 0.09
+    scale_km: 12
+    perils: [WTC]
+    ded_pct_tiv: 0.02
+    value_index: 0.95
+    construction_override:
+      1051: {5100: 0.70, 5050: 0.25, 5150: 0.05}
+  - {name: Houston,       lat: 29.7604, lon: -95.3698,  weight: 0.18, scale_km: 20, perils: [WTC], ded_pct_tiv: 0.02, value_index: 0.90}
+  - {name: New Orleans,   lat: 29.9511, lon: -90.0715,  weight: 0.07, scale_km: 10, perils: [WTC], ded_pct_tiv: 0.05, value_index: 0.85}
+  - {name: Charleston,    lat: 32.7765, lon: -79.9311,  weight: 0.05, scale_km: 8,  perils: [WTC], ded_pct_tiv: 0.02, value_index: 1.00}
+
+occupancies:
+  - code: 1051            # single family dwelling
+    weight: 0.55
+    construction: {5050: 0.80, 5100: 0.15, 5150: 0.05}
+    storeys: {min: 1, p: 0.6, max: 3}
+    value_per_storey: 220000
+    value_sigma: 0.45
+    contents_ratio: 0.5
+    bi_ratio: 0.1         # additional living expenses
+    personal_lines: true
+  - code: 1052            # multi-family dwelling
+    weight: 0.15
+    construction: {5050: 0.40, 5100: 0.25, 5150: 0.30, 5200: 0.05}
+    storeys: {min: 2, p: 0.25, max: 30}
+    value_per_storey: 600000
+    value_sigma: 0.6
+    contents_ratio: 0.3
+    bi_ratio: 0.15
+  - code: 1100            # commercial
+    weight: 0.20
+    construction: {5000: 0.05, 5100: 0.25, 5150: 0.40, 5200: 0.30}
+    storeys: {min: 1, p: 0.2, max: 60}
+    value_per_storey: 900000
+    value_sigma: 0.7
+    contents_ratio: 0.8
+    bi_ratio: 0.5
+  - code: 1150            # industrial
+    weight: 0.10
+    construction: {5000: 0.10, 5100: 0.20, 5150: 0.20, 5200: 0.50}
+    storeys: {min: 1, p: 0.7, max: 4}
+    value_per_storey: 1500000
+    value_sigma: 0.6
+    contents_ratio: 1.2
+    bi_ratio: 0.6
+
+year_built: {mean: 1982, sd: 22, min: 1880, max: 2025}
+
+accounts:
+  commercial_mean_locations: 6
+  size_tail_alpha: 1.6
+  participation: [0.25, 1.0]
+  limit_ratio: [0.3, 1.0]
+  attachment_ratio: [0.0, 0.05]
+
+urban_value_uplift: 0.5
+h3_resolutions: [5, 7]

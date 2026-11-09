@@ -1,0 +1,1165 @@
+{
+  "components": {
+    "schemas": {
+      "Accounts": {
+        "additionalProperties": false,
+        "description": "Commercial schedules: account size - 1 ~ Lomax(alpha) scaled to the requested mean.",
+        "properties": {
+          "attachment_ratio": {
+            "default": [
+              0.0,
+              0.05
+            ],
+            "description": "Layer attachment as a fraction of account TIV",
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Attachment Ratio",
+            "type": "array"
+          },
+          "commercial_mean_locations": {
+            "default": 6.0,
+            "exclusiveMinimum": 1.0,
+            "title": "Commercial Mean Locations",
+            "type": "number"
+          },
+          "limit_ratio": {
+            "default": [
+              0.3,
+              1.0
+            ],
+            "description": "Layer limit as a fraction of account TIV",
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Limit Ratio",
+            "type": "array"
+          },
+          "participation": {
+            "default": [
+              0.25,
+              1.0
+            ],
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Participation",
+            "type": "array"
+          },
+          "size_tail_alpha": {
+            "default": 1.6,
+            "description": "Pareto tail index of size",
+            "exclusiveMinimum": 1.0,
+            "title": "Size Tail Alpha",
+            "type": "number"
+          }
+        },
+        "title": "Accounts",
+        "type": "object"
+      },
+      "AggregateRow": {
+        "properties": {
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          },
+          "n_locations": {
+            "title": "N Locations",
+            "type": "integer"
+          },
+          "tiv": {
+            "title": "Tiv",
+            "type": "number"
+          }
+        },
+        "required": [
+          "key",
+          "n_locations",
+          "tiv",
+          "lat",
+          "lon"
+        ],
+        "title": "AggregateRow",
+        "type": "object"
+      },
+      "CodeLists": {
+        "properties": {
+          "construction": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Construction",
+            "type": "object"
+          },
+          "ded_type": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Ded Type",
+            "type": "object"
+          },
+          "occupancy": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Occupancy",
+            "type": "object"
+          },
+          "perils": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Perils",
+            "type": "object"
+          }
+        },
+        "required": [
+          "perils",
+          "occupancy",
+          "construction",
+          "ded_type"
+        ],
+        "title": "CodeLists",
+        "type": "object"
+      },
+      "CreatePortfolio": {
+        "description": "Generate from a preset (optionally overriding size/seed) or from a full config.",
+        "properties": {
+          "config": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PortfolioConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "n_locations": {
+            "anyOf": [
+              {
+                "maximum": 5000000.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "N Locations"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "preset": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preset"
+          },
+          "seed": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed"
+          }
+        },
+        "title": "CreatePortfolio",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "Health": {
+        "properties": {
+          "status": {
+            "default": "ok",
+            "title": "Status",
+            "type": "string"
+          },
+          "version": {
+            "default": "0.1.0",
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "title": "Health",
+        "type": "object"
+      },
+      "Hub": {
+        "additionalProperties": false,
+        "description": "A population centre around which locations are scattered.\n\nRadial distance from the centre follows Clark's exponential urban density law\nD(r) = D0 exp(-r/s). In 2-D the radial pdf is proportional to r exp(-r/s), i.e.\nr ~ Gamma(shape=2, scale=s), so ``scale_km`` is the density decay length s.",
+        "properties": {
+          "construction_override": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              "type": "object"
+            },
+            "description": "Per-occupancy construction mix overriding the global one at this hub",
+            "title": "Construction Override",
+            "type": "object"
+          },
+          "country": {
+            "default": "US",
+            "pattern": "^[A-Z]{2}$",
+            "title": "Country",
+            "type": "string"
+          },
+          "ded_pct_tiv": {
+            "default": 0.02,
+            "description": "Location deductible, %TIV",
+            "maximum": 0.5,
+            "minimum": 0.0,
+            "title": "Ded Pct Tiv",
+            "type": "number"
+          },
+          "lat": {
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Lon",
+            "type": "number"
+          },
+          "name": {
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "perils": {
+            "description": "OED peril codes covered at this hub",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Perils",
+            "type": "array"
+          },
+          "scale_km": {
+            "default": 12.0,
+            "description": "Density decay length (km)",
+            "exclusiveMinimum": 0.0,
+            "maximum": 500.0,
+            "title": "Scale Km",
+            "type": "number"
+          },
+          "value_index": {
+            "default": 1.0,
+            "description": "Replacement-cost multiplier",
+            "exclusiveMinimum": 0.0,
+            "title": "Value Index",
+            "type": "number"
+          },
+          "weight": {
+            "description": "Relative share of portfolio locations at this hub",
+            "exclusiveMinimum": 0.0,
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "lat",
+          "lon",
+          "weight",
+          "perils"
+        ],
+        "title": "Hub",
+        "type": "object"
+      },
+      "OccupancyClass": {
+        "additionalProperties": false,
+        "properties": {
+          "bi_ratio": {
+            "description": "Mean BI TIV / building TIV",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Bi Ratio",
+            "type": "number"
+          },
+          "code": {
+            "title": "Code",
+            "type": "integer"
+          },
+          "construction": {
+            "additionalProperties": {
+              "exclusiveMinimum": 0.0,
+              "type": "number"
+            },
+            "title": "Construction",
+            "type": "object"
+          },
+          "contents_ratio": {
+            "description": "Mean contents TIV / building TIV",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Contents Ratio",
+            "type": "number"
+          },
+          "personal_lines": {
+            "default": false,
+            "description": "Each location is its own single-location account",
+            "title": "Personal Lines",
+            "type": "boolean"
+          },
+          "storeys": {
+            "$ref": "#/components/schemas/Storeys"
+          },
+          "value_per_storey": {
+            "description": "Median building value per storey",
+            "exclusiveMinimum": 0.0,
+            "title": "Value Per Storey",
+            "type": "number"
+          },
+          "value_sigma": {
+            "default": 0.5,
+            "description": "Lognormal sigma of value",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Value Sigma",
+            "type": "number"
+          },
+          "weight": {
+            "exclusiveMinimum": 0.0,
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "code",
+          "weight",
+          "construction",
+          "storeys",
+          "value_per_storey",
+          "contents_ratio",
+          "bi_ratio"
+        ],
+        "title": "OccupancyClass",
+        "type": "object"
+      },
+      "PerilExposure": {
+        "properties": {
+          "n_locations": {
+            "title": "N Locations",
+            "type": "integer"
+          },
+          "peril": {
+            "title": "Peril",
+            "type": "string"
+          },
+          "tiv": {
+            "title": "Tiv",
+            "type": "number"
+          }
+        },
+        "required": [
+          "peril",
+          "n_locations",
+          "tiv"
+        ],
+        "title": "PerilExposure",
+        "type": "object"
+      },
+      "PortfolioConfig": {
+        "additionalProperties": false,
+        "description": "Top-level synthetic portfolio specification.",
+        "properties": {
+          "accounts": {
+            "$ref": "#/components/schemas/Accounts",
+            "default": {
+              "attachment_ratio": [
+                0.0,
+                0.05
+              ],
+              "commercial_mean_locations": 6.0,
+              "limit_ratio": [
+                0.3,
+                1.0
+              ],
+              "participation": [
+                0.25,
+                1.0
+              ],
+              "size_tail_alpha": 1.6
+            }
+          },
+          "currency": {
+            "default": "USD",
+            "pattern": "^[A-Z]{3}$",
+            "title": "Currency",
+            "type": "string"
+          },
+          "h3_resolutions": {
+            "default": [
+              5,
+              7
+            ],
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 1,
+            "title": "H3 Resolutions",
+            "type": "array"
+          },
+          "hubs": {
+            "items": {
+              "$ref": "#/components/schemas/Hub"
+            },
+            "minItems": 1,
+            "title": "Hubs",
+            "type": "array"
+          },
+          "n_locations": {
+            "maximum": 5000000.0,
+            "minimum": 1.0,
+            "title": "N Locations",
+            "type": "integer"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "occupancies": {
+            "items": {
+              "$ref": "#/components/schemas/OccupancyClass"
+            },
+            "minItems": 1,
+            "title": "Occupancies",
+            "type": "array"
+          },
+          "portfolio_number": {
+            "default": "P1",
+            "minLength": 1,
+            "title": "Portfolio Number",
+            "type": "string"
+          },
+          "seed": {
+            "default": 42,
+            "minimum": 0.0,
+            "title": "Seed",
+            "type": "integer"
+          },
+          "urban_value_uplift": {
+            "default": 0.5,
+            "description": "Value premium at the hub core, decaying with exp(-r/s)",
+            "minimum": 0.0,
+            "title": "Urban Value Uplift",
+            "type": "number"
+          },
+          "year_built": {
+            "$ref": "#/components/schemas/YearBuilt",
+            "default": {
+              "max": 2026,
+              "mean": 1985.0,
+              "min": 1850,
+              "sd": 20.0
+            }
+          }
+        },
+        "required": [
+          "name",
+          "n_locations",
+          "hubs",
+          "occupancies"
+        ],
+        "title": "PortfolioConfig",
+        "type": "object"
+      },
+      "PortfolioMeta": {
+        "properties": {
+          "config": {
+            "$ref": "#/components/schemas/PortfolioConfig"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "generation_ms": {
+            "title": "Generation Ms",
+            "type": "number"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/PortfolioSummary"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "created_at",
+          "generation_ms",
+          "config",
+          "summary"
+        ],
+        "title": "PortfolioMeta",
+        "type": "object"
+      },
+      "PortfolioSummary": {
+        "properties": {
+          "bbox": {
+            "maxItems": 4,
+            "minItems": 4,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Bbox",
+            "type": "array"
+          },
+          "by_peril": {
+            "items": {
+              "$ref": "#/components/schemas/PerilExposure"
+            },
+            "title": "By Peril",
+            "type": "array"
+          },
+          "n_accounts": {
+            "title": "N Accounts",
+            "type": "integer"
+          },
+          "n_locations": {
+            "title": "N Locations",
+            "type": "integer"
+          },
+          "tiv_bi": {
+            "title": "Tiv Bi",
+            "type": "number"
+          },
+          "tiv_building": {
+            "title": "Tiv Building",
+            "type": "number"
+          },
+          "tiv_contents": {
+            "title": "Tiv Contents",
+            "type": "number"
+          },
+          "tiv_total": {
+            "title": "Tiv Total",
+            "type": "number"
+          }
+        },
+        "required": [
+          "n_locations",
+          "n_accounts",
+          "tiv_total",
+          "tiv_building",
+          "tiv_contents",
+          "tiv_bi",
+          "by_peril",
+          "bbox"
+        ],
+        "title": "PortfolioSummary",
+        "type": "object"
+      },
+      "Storeys": {
+        "additionalProperties": false,
+        "description": "Storey count = min + Geometric(p) - 1, truncated at max.",
+        "properties": {
+          "max": {
+            "maximum": 200.0,
+            "minimum": 1.0,
+            "title": "Max",
+            "type": "integer"
+          },
+          "min": {
+            "default": 1,
+            "minimum": 1.0,
+            "title": "Min",
+            "type": "integer"
+          },
+          "p": {
+            "description": "Geometric success probability",
+            "exclusiveMinimum": 0.0,
+            "maximum": 1.0,
+            "title": "P",
+            "type": "number"
+          }
+        },
+        "required": [
+          "p",
+          "max"
+        ],
+        "title": "Storeys",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "YearBuilt": {
+        "additionalProperties": false,
+        "properties": {
+          "max": {
+            "default": 2026,
+            "title": "Max",
+            "type": "integer"
+          },
+          "mean": {
+            "default": 1985,
+            "title": "Mean",
+            "type": "number"
+          },
+          "min": {
+            "default": 1850,
+            "title": "Min",
+            "type": "integer"
+          },
+          "sd": {
+            "default": 20,
+            "minimum": 0.0,
+            "title": "Sd",
+            "type": "number"
+          }
+        },
+        "title": "YearBuilt",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Open-source interactive catastrophe modelling platform.",
+    "title": "catmod API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/codes": {
+      "get": {
+        "operationId": "codes_api_v1_codes_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeLists"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Codes",
+        "tags": [
+          "reference"
+        ]
+      }
+    },
+    "/api/v1/portfolios": {
+      "get": {
+        "operationId": "list_portfolios_api_v1_portfolios_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PortfolioMeta"
+                  },
+                  "title": "Response List Portfolios Api V1 Portfolios Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Portfolios",
+        "tags": [
+          "portfolios"
+        ]
+      },
+      "post": {
+        "operationId": "create_portfolio_api_v1_portfolios_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePortfolio"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioMeta"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Portfolio",
+        "tags": [
+          "portfolios"
+        ]
+      }
+    },
+    "/api/v1/portfolios/{pid}": {
+      "delete": {
+        "operationId": "delete_portfolio_api_v1_portfolios__pid__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "required": true,
+            "schema": {
+              "title": "Pid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Portfolio",
+        "tags": [
+          "portfolios"
+        ]
+      },
+      "get": {
+        "operationId": "get_portfolio_api_v1_portfolios__pid__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "required": true,
+            "schema": {
+              "title": "Pid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioMeta"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Portfolio",
+        "tags": [
+          "portfolios"
+        ]
+      }
+    },
+    "/api/v1/portfolios/{pid}/aggregate": {
+      "get": {
+        "operationId": "aggregate_api_v1_portfolios__pid__aggregate_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "required": true,
+            "schema": {
+              "title": "Pid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "by",
+            "required": false,
+            "schema": {
+              "default": "hub",
+              "enum": [
+                "hub",
+                "occupancy",
+                "construction",
+                "country",
+                "peril",
+                "h3"
+              ],
+              "title": "By",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "h3_res",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maximum": 15,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "H3 Res"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AggregateRow"
+                  },
+                  "title": "Response Aggregate Api V1 Portfolios  Pid  Aggregate Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Aggregate",
+        "tags": [
+          "portfolios"
+        ]
+      }
+    },
+    "/api/v1/portfolios/{pid}/files/{table}.parquet": {
+      "get": {
+        "operationId": "parquet_file_api_v1_portfolios__pid__files__table__parquet_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "required": true,
+            "schema": {
+              "title": "Pid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "title": "Table",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.apache.parquet": {}
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Parquet File",
+        "tags": [
+          "portfolios"
+        ]
+      }
+    },
+    "/api/v1/portfolios/{pid}/locations.arrow": {
+      "get": {
+        "operationId": "locations_arrow_api_v1_portfolios__pid__locations_arrow_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "required": true,
+            "schema": {
+              "title": "Pid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.apache.arrow.stream": {}
+            },
+            "description": "Arrow IPC stream"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Locations Arrow",
+        "tags": [
+          "portfolios"
+        ]
+      }
+    },
+    "/api/v1/presets": {
+      "get": {
+        "operationId": "presets_api_v1_presets_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response Presets Api V1 Presets Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Presets",
+        "tags": [
+          "reference"
+        ]
+      }
+    },
+    "/api/v1/presets/{name}": {
+      "get": {
+        "operationId": "preset_api_v1_presets__name__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "title": "Name",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioConfig"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Preset",
+        "tags": [
+          "reference"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "system"
+        ]
+      }
+    }
+  }
+}
