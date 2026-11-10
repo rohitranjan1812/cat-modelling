@@ -4,6 +4,92 @@
  */
 
 export interface paths {
+    "/api/v1/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Alerts */
+        get: operations["alerts_api_v1_alerts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/alerts/rules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Alert Rules */
+        get: operations["alert_rules_api_v1_alerts_rules_get"];
+        put?: never;
+        /** Upsert Rule */
+        post: operations["upsert_rule_api_v1_alerts_rules_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/alerts/rules/{rule_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Rule */
+        delete: operations["delete_rule_api_v1_alerts_rules__rule_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/analysis/presets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Analysis Preset List */
+        get: operations["analysis_preset_list_api_v1_analysis_presets_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/capabilities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Capabilities */
+        get: operations["capabilities_api_v1_capabilities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/codes": {
         parameters: {
             query?: never;
@@ -13,6 +99,145 @@ export interface paths {
         };
         /** Codes */
         get: operations["codes_api_v1_codes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/dashboards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Dashboards List */
+        get: operations["dashboards_list_api_v1_dashboards_get"];
+        put?: never;
+        /** Dashboard Create */
+        post: operations["dashboard_create_api_v1_dashboards_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/dashboards/template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Dashboard Template */
+        get: operations["dashboard_template_api_v1_dashboards_template_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/dashboards/{did}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Dashboard Get */
+        get: operations["dashboard_get_api_v1_dashboards__did__get"];
+        /** Dashboard Put */
+        put: operations["dashboard_put_api_v1_dashboards__did__put"];
+        post?: never;
+        /** Dashboard Delete */
+        delete: operations["dashboard_delete_api_v1_dashboards__did__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/live/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Live Events */
+        get: operations["live_events_api_v1_live_events_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/live/events/{event_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Live Remove */
+        delete: operations["live_remove_api_v1_live_events__event_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/live/inject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Live Inject */
+        post: operations["live_inject_api_v1_live_inject_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/live/refresh": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Live Refresh */
+        post: operations["live_refresh_api_v1_live_refresh_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/live/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Live Status */
+        get: operations["live_status_api_v1_live_status_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -142,6 +367,178 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Runs */
+        get: operations["list_runs_api_v1_runs_get"];
+        put?: never;
+        /** Create Run */
+        post: operations["create_run_api_v1_runs_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{rid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Run */
+        get: operations["get_run_api_v1_runs__rid__get"];
+        put?: never;
+        post?: never;
+        /** Delete Run */
+        delete: operations["delete_run_api_v1_runs__rid__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{rid}/breakdown": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run Breakdown */
+        get: operations["run_breakdown_api_v1_runs__rid__breakdown_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{rid}/ep": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run Ep */
+        get: operations["run_ep_api_v1_runs__rid__ep_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{rid}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run Events */
+        get: operations["run_events_api_v1_runs__rid__events_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{rid}/events-at-rp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run Events At Rp */
+        get: operations["run_events_at_rp_api_v1_runs__rid__events_at_rp_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{rid}/events/{event_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run Event */
+        get: operations["run_event_api_v1_runs__rid__events__event_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{rid}/files/{name}.parquet": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run File */
+        get: operations["run_file_api_v1_runs__rid__files__name__parquet_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{rid}/locations.arrow": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Run Locations */
+        get: operations["run_locations_api_v1_runs__rid__locations_arrow_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Scenario */
+        post: operations["scenario_api_v1_scenarios_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -228,6 +625,668 @@ export interface components {
             /** Tiv */
             tiv: number;
         };
+        /** Alert */
+        Alert: {
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Event Name */
+            event_name: string;
+            /** Id */
+            id: string;
+            /** Live Event Id */
+            live_event_id: string;
+            /**
+             * Metric
+             * @enum {string}
+             */
+            metric: "mean_gross" | "p90_gross" | "p99_gross" | "mean_gu" | "p90_gu" | "n_affected";
+            /** Portfolio Id */
+            portfolio_id: string;
+            /** Rule Id */
+            rule_id: string;
+            /** Rule Name */
+            rule_name: string;
+            /** Threshold */
+            threshold: number;
+            /** Value */
+            value: number;
+        };
+        /** AlertRule */
+        AlertRule: {
+            /**
+             * Enabled
+             * @default true
+             */
+            enabled: boolean;
+            /** Id */
+            id?: string;
+            /**
+             * Metric
+             * @default p90_gross
+             * @enum {string}
+             */
+            metric: "mean_gross" | "p90_gross" | "p99_gross" | "mean_gu" | "p90_gu" | "n_affected";
+            /** Name */
+            name: string;
+            /** Peril */
+            peril?: string | null;
+            /** Portfolio Id */
+            portfolio_id?: string | null;
+            /** Threshold */
+            threshold: number;
+        };
+        /** AnalysisConfig */
+        AnalysisConfig: {
+            /**
+             * @default {
+             *       "field": "fft",
+             *       "model": "one_factor",
+             *       "range_km": 10,
+             *       "rho": 0.15,
+             *       "rho_by_construction": {}
+             *     }
+             */
+            damage_correlation: components["schemas"]["DamageCorrelationConfig"];
+            /**
+             * @default {
+             *       "area_sites": 12,
+             *       "dm": 0.2,
+             *       "field": {
+             *         "model": "fft",
+             *         "range_km": 20
+             *       },
+             *       "gmm": {
+             *         "a": 0.893,
+             *         "b": 0.715,
+             *         "c": -0.155,
+             *         "d": 0.004,
+             *         "h": 6,
+             *         "m_sat": 8.3,
+             *         "s": -0.5
+             *       },
+             *       "max_distance_km": 300,
+             *       "min_median_pga": 0.01,
+             *       "phi": 0.55,
+             *       "position_step_km": 15,
+             *       "sources": [
+             *         {
+             *           "b_value": 0.9,
+             *           "kind": "fault",
+             *           "m_max": 8,
+             *           "m_min": 6,
+             *           "name": "San Andreas (south)",
+             *           "radius_km": 60,
+             *           "rate": 0.04,
+             *           "trace": [
+             *             [
+             *               33.35,
+             *               -115.7
+             *             ],
+             *             [
+             *               34,
+             *               -116.8
+             *             ],
+             *             [
+             *               34.35,
+             *               -117.6
+             *             ],
+             *             [
+             *               34.8,
+             *               -118.9
+             *             ],
+             *             [
+             *               35.7,
+             *               -120.3
+             *             ]
+             *           ],
+             *           "ztor_km": 0
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "kind": "fault",
+             *           "m_max": 7.9,
+             *           "m_min": 6,
+             *           "name": "San Andreas (north)",
+             *           "radius_km": 60,
+             *           "rate": 0.02,
+             *           "trace": [
+             *             [
+             *               36.8,
+             *               -121.5
+             *             ],
+             *             [
+             *               37.5,
+             *               -122.4
+             *             ],
+             *             [
+             *               38.3,
+             *               -123.1
+             *             ],
+             *             [
+             *               39,
+             *               -123.7
+             *             ]
+             *           ],
+             *           "ztor_km": 0
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "kind": "fault",
+             *           "m_max": 7.3,
+             *           "m_min": 6,
+             *           "name": "Hayward-Rodgers Creek",
+             *           "radius_km": 60,
+             *           "rate": 0.015,
+             *           "trace": [
+             *             [
+             *               37.4,
+             *               -121.9
+             *             ],
+             *             [
+             *               37.8,
+             *               -122.2
+             *             ],
+             *             [
+             *               38.2,
+             *               -122.6
+             *             ]
+             *           ],
+             *           "ztor_km": 0
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "kind": "fault",
+             *           "m_max": 7.5,
+             *           "m_min": 6,
+             *           "name": "San Jacinto",
+             *           "radius_km": 60,
+             *           "rate": 0.02,
+             *           "trace": [
+             *             [
+             *               32.8,
+             *               -115.6
+             *             ],
+             *             [
+             *               33.5,
+             *               -116.5
+             *             ],
+             *             [
+             *               34.1,
+             *               -117.3
+             *             ]
+             *           ],
+             *           "ztor_km": 0
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "kind": "fault",
+             *           "m_max": 7.2,
+             *           "m_min": 5.5,
+             *           "name": "Newport-Inglewood",
+             *           "radius_km": 60,
+             *           "rate": 0.01,
+             *           "trace": [
+             *             [
+             *               33.6,
+             *               -117.9
+             *             ],
+             *             [
+             *               34,
+             *               -118.4
+             *             ]
+             *           ],
+             *           "ztor_km": 0
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "kind": "fault",
+             *           "m_max": 7.1,
+             *           "m_min": 5.5,
+             *           "name": "Puente Hills thrust",
+             *           "radius_km": 60,
+             *           "rate": 0.008,
+             *           "trace": [
+             *             [
+             *               33.95,
+             *               -118
+             *             ],
+             *             [
+             *               34.05,
+             *               -118.35
+             *             ]
+             *           ],
+             *           "ztor_km": 3
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "kind": "fault",
+             *           "m_max": 7,
+             *           "m_min": 5.5,
+             *           "name": "Rose Canyon",
+             *           "radius_km": 60,
+             *           "rate": 0.003,
+             *           "trace": [
+             *             [
+             *               32.6,
+             *               -117.2
+             *             ],
+             *             [
+             *               33,
+             *               -117.3
+             *             ]
+             *           ],
+             *           "ztor_km": 0
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "kind": "fault",
+             *           "m_max": 7.4,
+             *           "m_min": 6,
+             *           "name": "Seattle fault",
+             *           "radius_km": 60,
+             *           "rate": 0.002,
+             *           "trace": [
+             *             [
+             *               47.55,
+             *               -122.9
+             *             ],
+             *             [
+             *               47.6,
+             *               -122
+             *             ]
+             *           ],
+             *           "ztor_km": 0
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "kind": "fault",
+             *           "m_max": 9.1,
+             *           "m_min": 8,
+             *           "name": "Cascadia subduction",
+             *           "radius_km": 60,
+             *           "rate": 0.002,
+             *           "trace": [
+             *             [
+             *               40.5,
+             *               -124.6
+             *             ],
+             *             [
+             *               43,
+             *               -124.8
+             *             ],
+             *             [
+             *               46,
+             *               -124.6
+             *             ],
+             *             [
+             *               48.3,
+             *               -125.2
+             *             ]
+             *           ],
+             *           "ztor_km": 10
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "center": [
+             *             34.05,
+             *             -118.25
+             *           ],
+             *           "kind": "area",
+             *           "m_max": 6.5,
+             *           "m_min": 5,
+             *           "name": "LA basin background",
+             *           "radius_km": 80,
+             *           "rate": 0.3,
+             *           "trace": [],
+             *           "ztor_km": 5
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "center": [
+             *             37.77,
+             *             -122.42
+             *           ],
+             *           "kind": "area",
+             *           "m_max": 6.5,
+             *           "m_min": 5,
+             *           "name": "SF Bay background",
+             *           "radius_km": 70,
+             *           "rate": 0.15,
+             *           "trace": [],
+             *           "ztor_km": 5
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "center": [
+             *             32.72,
+             *             -117.16
+             *           ],
+             *           "kind": "area",
+             *           "m_max": 6.5,
+             *           "m_min": 5,
+             *           "name": "San Diego background",
+             *           "radius_km": 60,
+             *           "rate": 0.05,
+             *           "trace": [],
+             *           "ztor_km": 5
+             *         },
+             *         {
+             *           "b_value": 0.9,
+             *           "center": [
+             *             47.4,
+             *             -122.5
+             *           ],
+             *           "kind": "area",
+             *           "m_max": 7,
+             *           "m_min": 5,
+             *           "name": "Puget Sound intraslab",
+             *           "radius_km": 80,
+             *           "rate": 0.05,
+             *           "trace": [],
+             *           "ztor_km": 45
+             *         }
+             *       ],
+             *       "tau": 0.35
+             *     }
+             */
+            eq: components["schemas"]["EqConfig"];
+            /**
+             * N Samples
+             * @description Samples per event
+             * @default 8
+             */
+            n_samples: number;
+            /**
+             * N Years
+             * @default 50000
+             */
+            n_years: number;
+            /**
+             * Name
+             * @default Stochastic analysis
+             */
+            name: string;
+            /** Perils */
+            perils?: string[];
+            /**
+             * Plugins
+             * @description Config for plugin hazards keyed by peril code
+             */
+            plugins?: {
+                [key: string]: {
+                    [key: string]: unknown;
+                };
+            };
+            /**
+             * @default {
+             *       "layers": [],
+             *       "quota_share": 0
+             *     }
+             */
+            reinsurance: components["schemas"]["ReinsuranceConfig"];
+            /** Return Periods */
+            return_periods?: number[];
+            /**
+             * Seed
+             * @default 7
+             */
+            seed: number;
+            /**
+             * @default {
+             *       "annual_landfall_rate": 1.7,
+             *       "decay_alpha": 0.095,
+             *       "decay_r": 0.9,
+             *       "decay_vb": 13.7,
+             *       "field": {
+             *         "model": "fft",
+             *         "range_km": 60
+             *       },
+             *       "gate": [
+             *         [
+             *           25.95,
+             *           -97.15
+             *         ],
+             *         [
+             *           27.8,
+             *           -97.1
+             *         ],
+             *         [
+             *           29.3,
+             *           -94.8
+             *         ],
+             *         [
+             *           29.75,
+             *           -93.3
+             *         ],
+             *         [
+             *           29.25,
+             *           -90.7
+             *         ],
+             *         [
+             *           30.3,
+             *           -89.1
+             *         ],
+             *         [
+             *           30.35,
+             *           -87.2
+             *         ],
+             *         [
+             *           29.7,
+             *           -85
+             *         ],
+             *         [
+             *           29.1,
+             *           -83
+             *         ],
+             *         [
+             *           27.7,
+             *           -82.7
+             *         ],
+             *         [
+             *           26.1,
+             *           -81.8
+             *         ],
+             *         [
+             *           25.15,
+             *           -80.95
+             *         ],
+             *         [
+             *           25.8,
+             *           -80.13
+             *         ],
+             *         [
+             *           26.7,
+             *           -80.03
+             *         ],
+             *         [
+             *           28.4,
+             *           -80.6
+             *         ],
+             *         [
+             *           30.3,
+             *           -81.4
+             *         ],
+             *         [
+             *           32,
+             *           -80.85
+             *         ],
+             *         [
+             *           32.75,
+             *           -79.9
+             *         ],
+             *         [
+             *           33.7,
+             *           -78.85
+             *         ],
+             *         [
+             *           34.2,
+             *           -77.85
+             *         ],
+             *         [
+             *           35.2,
+             *           -75.55
+             *         ]
+             *       ],
+             *       "gate_density": [
+             *         1,
+             *         1,
+             *         1.1,
+             *         1,
+             *         1.2,
+             *         1.1,
+             *         1.2,
+             *         1.1,
+             *         0.8,
+             *         1,
+             *         1.3,
+             *         1.5,
+             *         1.5,
+             *         1.2,
+             *         0.9,
+             *         0.5,
+             *         0.4,
+             *         0.8,
+             *         0.9,
+             *         1,
+             *         1.1
+             *       ],
+             *       "gate_spacing_km": 100,
+             *       "heading_offsets_deg": [
+             *         -30,
+             *         0,
+             *         30
+             *       ],
+             *       "heading_weights": [
+             *         0.25,
+             *         0.5,
+             *         0.25
+             *       ],
+             *       "holland_b": 1.4,
+             *       "hours_after": 36,
+             *       "hours_before": 24,
+             *       "max_radius_km": 400,
+             *       "min_median_wind": 20,
+             *       "phi": 0.12,
+             *       "rmax_factors": [
+             *         0.7,
+             *         1.4
+             *       ],
+             *       "rmax_weights": [
+             *         0.5,
+             *         0.5
+             *       ],
+             *       "tau": 0.08,
+             *       "translation_ms": 6,
+             *       "vmax_max": 80,
+             *       "vmax_min": 33,
+             *       "vmax_scale": 14,
+             *       "vmax_step": 5
+             *     }
+             */
+            tc: components["schemas"]["TcConfig"];
+            /**
+             * @default {
+             *       "bi_factor": 1.5,
+             *       "contents_factor": 1,
+             *       "curves": {
+             *         "QEQ": {
+             *           "5000": {
+             *             "beta": 0.7,
+             *             "theta": 1.2
+             *           },
+             *           "5050": {
+             *             "beta": 0.7,
+             *             "theta": 1.6
+             *           },
+             *           "5100": {
+             *             "beta": 0.7,
+             *             "theta": 1
+             *           },
+             *           "5150": {
+             *             "beta": 0.7,
+             *             "theta": 1.4
+             *           },
+             *           "5200": {
+             *             "beta": 0.7,
+             *             "theta": 1.8
+             *           }
+             *         },
+             *         "WTC": {
+             *           "5000": {
+             *             "beta": 0.25,
+             *             "theta": 78
+             *           },
+             *           "5050": {
+             *             "beta": 0.25,
+             *             "theta": 75
+             *           },
+             *           "5100": {
+             *             "beta": 0.25,
+             *             "theta": 85
+             *           },
+             *           "5150": {
+             *             "beta": 0.25,
+             *             "theta": 95
+             *           },
+             *           "5200": {
+             *             "beta": 0.25,
+             *             "theta": 90
+             *           }
+             *         }
+             *       },
+             *       "secondary_k": 0.4,
+             *       "year_built_gamma": 0.3,
+             *       "year_built_pivot": 1975,
+             *       "year_built_span": 50
+             *     }
+             */
+            vulnerability: components["schemas"]["VulnerabilityConfig"];
+            /**
+             * Workers
+             * @description Processes; 0 = auto (<= 8)
+             * @default 0
+             */
+            workers: number;
+        };
+        /** BreakdownRow */
+        BreakdownRow: {
+            /** Aal Gross */
+            aal_gross: number;
+            /** Aal Gu */
+            aal_gu: number;
+            /** Key */
+            key: string;
+            /** Lat */
+            lat: number;
+            /** Lon */
+            lon: number;
+            /** N Locations */
+            n_locations: number;
+            /** Tiv */
+            tiv: number;
+        };
+        /** Capabilities */
+        Capabilities: {
+            /** Analysis Presets */
+            analysis_presets: string[];
+            /** Auth */
+            auth: boolean;
+            /** Copulas */
+            copulas: string[];
+            /** Hazards */
+            hazards: string[];
+            /** Live Enabled */
+            live_enabled: boolean;
+            /** Portfolio Presets */
+            portfolio_presets: string[];
+            /** Spatial Fields */
+            spatial_fields: string[];
+            /** Version */
+            version: string;
+        };
         /** CodeLists */
         CodeLists: {
             /** Construction */
@@ -261,6 +1320,427 @@ export interface components {
             preset?: string | null;
             /** Seed */
             seed?: number | null;
+        };
+        /**
+         * CreateRun
+         * @description Start an analysis from an analysis preset (with overrides) or a full config.
+         */
+        CreateRun: {
+            config?: components["schemas"]["AnalysisConfig"] | null;
+            /**
+             * Overrides
+             * @description Shallow overrides applied on top of the preset
+             */
+            overrides?: {
+                [key: string]: unknown;
+            };
+            /** Portfolio Id */
+            portfolio_id: string;
+            /**
+             * Preset
+             * @default standard
+             */
+            preset: string | null;
+        };
+        /** Curve */
+        Curve: {
+            /**
+             * Beta
+             * @description Lognormal dispersion of the MDR curve
+             */
+            beta: number;
+            /**
+             * Theta
+             * @description Intensity at which MDR = 50%
+             */
+            theta: number;
+        };
+        /** CurvePoint */
+        CurvePoint: {
+            /** Aep */
+            aep: number;
+            /** Oep */
+            oep: number;
+            /** Rp */
+            rp: number;
+        };
+        /** DamageCorrelationConfig */
+        DamageCorrelationConfig: {
+            /**
+             * Field
+             * @default fft
+             */
+            field: string;
+            /**
+             * Model
+             * @description independent | one_factor | spatial
+             * @default one_factor
+             */
+            model: string;
+            /**
+             * Range Km
+             * @default 10
+             */
+            range_km: number;
+            /**
+             * Rho
+             * @default 0.15
+             */
+            rho: number;
+            /** Rho By Construction */
+            rho_by_construction?: {
+                [key: string]: number;
+            };
+        };
+        /** Dashboard */
+        Dashboard: {
+            /**
+             * Description
+             * @default
+             */
+            description: string;
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+            /** Run Id */
+            run_id?: string | null;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Widgets */
+            widgets?: components["schemas"]["Widget"][];
+        };
+        /** DashboardIn */
+        DashboardIn: {
+            /**
+             * Description
+             * @default
+             */
+            description: string;
+            /** Name */
+            name: string;
+            /** Run Id */
+            run_id?: string | null;
+            /** Widgets */
+            widgets?: components["schemas"]["Widget"][];
+        };
+        /** EPResponse */
+        EPResponse: {
+            /** Curve */
+            curve: components["schemas"]["CurvePoint"][];
+            filters: components["schemas"]["Filters"];
+            metrics: components["schemas"]["PerspectiveMetrics"];
+            /** N Years */
+            n_years: number;
+            /**
+             * Perspective
+             * @enum {string}
+             */
+            perspective: "gu" | "gross" | "net";
+        };
+        /** EqConfig */
+        EqConfig: {
+            /**
+             * Area Sites
+             * @default 12
+             */
+            area_sites: number;
+            /**
+             * Dm
+             * @description Magnitude bin width
+             * @default 0.2
+             */
+            dm: number;
+            /**
+             * @default {
+             *       "model": "fft",
+             *       "range_km": 20
+             *     }
+             */
+            field: components["schemas"]["FieldConfig"];
+            /**
+             * @default {
+             *       "a": 0.893,
+             *       "b": 0.715,
+             *       "c": -0.155,
+             *       "d": 0.004,
+             *       "h": 6,
+             *       "m_sat": 8.3,
+             *       "s": -0.5
+             *     }
+             */
+            gmm: components["schemas"]["GmmCoefficients"];
+            /**
+             * Max Distance Km
+             * @default 300
+             */
+            max_distance_km: number;
+            /**
+             * Min Median Pga
+             * @description Prune sites below this (g)
+             * @default 0.01
+             */
+            min_median_pga: number;
+            /**
+             * Phi
+             * @default 0.55
+             */
+            phi: number;
+            /**
+             * Position Step Km
+             * @default 15
+             */
+            position_step_km: number;
+            /** Sources */
+            sources?: components["schemas"]["EqSource"][];
+            /**
+             * Tau
+             * @default 0.35
+             */
+            tau: number;
+        };
+        /** EqSource */
+        EqSource: {
+            /**
+             * B Value
+             * @default 0.9
+             */
+            b_value: number;
+            /**
+             * Center
+             * @description Area zone (lat, lon)
+             */
+            center?: [
+                number,
+                number
+            ] | null;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "fault" | "area";
+            /** M Max */
+            m_max: number;
+            /** M Min */
+            m_min: number;
+            /** Name */
+            name: string;
+            /**
+             * Radius Km
+             * @default 60
+             */
+            radius_km: number;
+            /**
+             * Rate
+             * @description Annual rate of M >= m_min
+             */
+            rate: number;
+            /**
+             * Trace
+             * @description Fault trace (lat, lon) vertices
+             */
+            trace?: [
+                number,
+                number
+            ][];
+            /**
+             * Ztor Km
+             * @description Depth to top of rupture
+             * @default 0
+             */
+            ztor_km: number;
+        };
+        /** EventDrill */
+        EventDrill: {
+            /** By Hub */
+            by_hub: components["schemas"]["GroupLoss"][];
+            /** Event Id */
+            event_id: number;
+            /** Footprint */
+            footprint: components["schemas"]["FootprintCell"][];
+            /** Geometry */
+            geometry: {
+                [key: string]: unknown;
+            };
+            gross: components["schemas"]["LossStats"];
+            gu: components["schemas"]["LossStats"];
+            /** N Affected */
+            n_affected: number;
+            /** Name */
+            name: string;
+            /** Peril */
+            peril: string;
+            /** Rate */
+            rate: number;
+            /** Samples Gross */
+            samples_gross: number[];
+            /** Samples Gu */
+            samples_gu: number[];
+            /** Summary */
+            summary: {
+                [key: string]: unknown;
+            };
+            /** Top Locations */
+            top_locations: components["schemas"]["LocationLoss"][];
+            /** Unit */
+            unit: string;
+        };
+        /** EventRow */
+        EventRow: {
+            /** Event Id */
+            event_id: number;
+            /** Lat */
+            lat: number;
+            /** Lon */
+            lon: number;
+            /** Magnitude */
+            magnitude?: number | null;
+            /** Max Gross */
+            max_gross: number;
+            /** Max Intensity */
+            max_intensity: number;
+            /** Mean Gross */
+            mean_gross: number;
+            /** Mean Gu */
+            mean_gu: number;
+            /** N Affected */
+            n_affected: number;
+            /** Name */
+            name: string;
+            /** Peril */
+            peril: string;
+            /** Rate */
+            rate: number;
+            /** Rp Equiv */
+            rp_equiv?: number | null;
+            /** Sd Gross */
+            sd_gross: number;
+            /** Vmax Ms */
+            vmax_ms?: number | null;
+        };
+        /** EventsAtRP */
+        EventsAtRP: {
+            /**
+             * Curve
+             * @enum {string}
+             */
+            curve: "oep" | "aep";
+            /** Events */
+            events: components["schemas"]["EventRow"][];
+            /** Level */
+            level: number;
+            /** Occurrences */
+            occurrences: number[];
+            /**
+             * Perspective
+             * @enum {string}
+             */
+            perspective: "gu" | "gross" | "net";
+            /** Rp */
+            rp: number;
+        };
+        /** FieldConfig */
+        FieldConfig: {
+            /** Grid Km */
+            grid_km?: number | null;
+            /**
+             * Model
+             * @default fft
+             */
+            model: string;
+            /**
+             * Range Km
+             * @default 20
+             */
+            range_km: number;
+        };
+        /** Filters */
+        Filters: {
+            /**
+             * Constructions
+             * @default []
+             */
+            constructions: number[];
+            /**
+             * Hubs
+             * @default []
+             */
+            hubs: string[];
+            /**
+             * Occupancies
+             * @default []
+             */
+            occupancies: number[];
+            /**
+             * Perils
+             * @default []
+             */
+            perils: string[];
+        };
+        /** FootprintCell */
+        FootprintCell: {
+            /** Gross */
+            gross: number;
+            /** Gu */
+            gu: number;
+            /** H3 */
+            h3: string;
+            /** Intensity */
+            intensity: number;
+            /** N */
+            n: number;
+        };
+        /** GmmCoefficients */
+        GmmCoefficients: {
+            /**
+             * A
+             * @default 0.893
+             */
+            a: number;
+            /**
+             * B
+             * @default 0.715
+             */
+            b: number;
+            /**
+             * C
+             * @default -0.155
+             */
+            c: number;
+            /**
+             * D
+             * @default 0.004
+             */
+            d: number;
+            /**
+             * H
+             * @default 6
+             */
+            h: number;
+            /**
+             * M Sat
+             * @default 8.3
+             */
+            m_sat: number;
+            /**
+             * S
+             * @default -0.5
+             */
+            s: number;
+        };
+        /** GroupLoss */
+        GroupLoss: {
+            /** Gross */
+            gross: number;
+            /** Gu */
+            gu: number;
+            /** Key */
+            key: string;
+            /** N */
+            n: number;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -333,10 +1813,192 @@ export interface components {
              */
             value_index: number;
             /**
+             * Vs30
+             * @description Median site Vs30 (m/s) for EQ site terms
+             * @default 400
+             */
+            vs30: number;
+            /**
              * Weight
              * @description Relative share of portfolio locations at this hub
              */
             weight: number;
+        };
+        /** InjectRequest */
+        InjectRequest: {
+            /**
+             * Depth Km
+             * @default 10
+             */
+            depth_km: number;
+            /**
+             * Heading Deg
+             * @default 300
+             */
+            heading_deg: number;
+            /** Lat */
+            lat: number;
+            /** Lon */
+            lon: number;
+            /** Magnitude */
+            magnitude?: number | null;
+            /**
+             * Name
+             * @default Simulated event
+             */
+            name: string;
+            /**
+             * Peril
+             * @enum {string}
+             */
+            peril: "QEQ" | "WTC";
+            /**
+             * Speed Ms
+             * @default 5
+             */
+            speed_ms: number;
+            /** Vmax Ms */
+            vmax_ms?: number | null;
+        };
+        /** LiveEventState */
+        LiveEventState: {
+            /** Classification */
+            classification?: string | null;
+            /** Depth Km */
+            depth_km?: number | null;
+            /** Geometry */
+            geometry: {
+                [key: string]: unknown;
+            };
+            /** Id */
+            id: string;
+            /** Lat */
+            lat: number;
+            /** Lon */
+            lon: number;
+            /** Magnitude */
+            magnitude?: number | null;
+            /** Name */
+            name: string;
+            /** Nowcasts */
+            nowcasts?: components["schemas"]["Nowcast"][];
+            /** Peril */
+            peril: string;
+            /**
+             * Source
+             * @enum {string}
+             */
+            source: "usgs" | "nhc" | "simulated";
+            /** Specs */
+            specs: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Time
+             * Format: date-time
+             */
+            time: string;
+            /** Url */
+            url?: string | null;
+            /** Vmax Ms */
+            vmax_ms?: number | null;
+        };
+        /** LiveStatus */
+        LiveStatus: {
+            /** Enabled */
+            enabled: boolean;
+            /** Interval S */
+            interval_s: number;
+            /** Last Error */
+            last_error: string | null;
+            /** Last Refresh */
+            last_refresh: string | null;
+            /** N Events */
+            n_events: number;
+            /** Sources */
+            sources: {
+                [key: string]: string;
+            };
+        };
+        /** LocationLoss */
+        LocationLoss: {
+            /** Acc Number */
+            acc_number: string;
+            /** Construction */
+            construction: number;
+            /** Gross */
+            gross: number;
+            /** Gu */
+            gu: number;
+            /** Hub */
+            hub: string;
+            /** Intensity */
+            intensity: number;
+            /** Lat */
+            lat: number;
+            /** Layer Attachment */
+            layer_attachment: number;
+            /** Layer Limit */
+            layer_limit: number;
+            /** Layer Participation */
+            layer_participation: number;
+            /** Loc Ded */
+            loc_ded: number;
+            /** Loc Ded Type */
+            loc_ded_type: number;
+            /** Loc Limit */
+            loc_limit: number;
+            /** Loc Number */
+            loc_number: string;
+            /** Lon */
+            lon: number;
+            /** Occupancy */
+            occupancy: number;
+            /** Tiv */
+            tiv: number;
+            /** Year Built */
+            year_built: number;
+        };
+        /** LossStats */
+        LossStats: {
+            /** Max */
+            max: number;
+            /** Mean */
+            mean: number;
+            /** P10 */
+            p10: number;
+            /** P50 */
+            p50: number;
+            /** P90 */
+            p90: number;
+            /** P99 */
+            p99: number;
+            /** Sd */
+            sd: number;
+        };
+        /** Nowcast */
+        Nowcast: {
+            /** By Hub */
+            by_hub: components["schemas"]["GroupLoss"][];
+            /**
+             * Computed At
+             * Format: date-time
+             */
+            computed_at: string;
+            /** Elapsed Ms */
+            elapsed_ms: number;
+            /** Footprint */
+            footprint: components["schemas"]["FootprintCell"][];
+            gross: components["schemas"]["LossStats"];
+            gu: components["schemas"]["LossStats"];
+            /** N Affected */
+            n_affected: number;
+            /** Portfolio Id */
+            portfolio_id: string;
+            /** Portfolio Name */
+            portfolio_name: string;
+            /** Top Locations */
+            top_locations: components["schemas"]["LocationLoss"][];
         };
         /** OccupancyClass */
         OccupancyClass: {
@@ -377,6 +2039,13 @@ export interface components {
             /** Weight */
             weight: number;
         };
+        /** Page */
+        Page: {
+            /** Items */
+            items: components["schemas"]["EventRow"][];
+            /** Total */
+            total: number;
+        };
         /** PerilExposure */
         PerilExposure: {
             /** N Locations */
@@ -385,6 +2054,43 @@ export interface components {
             peril: string;
             /** Tiv */
             tiv: number;
+        };
+        /** PerspectiveMetrics */
+        PerspectiveMetrics: {
+            /** Aal */
+            aal: number;
+            /** Aal Se */
+            aal_se: number | null;
+            /** Aep */
+            aep: {
+                [key: string]: number;
+            };
+            /** Aep Se */
+            aep_se: {
+                [key: string]: number | null;
+            };
+            /** Oep */
+            oep: {
+                [key: string]: number;
+            };
+            /** Oep Se */
+            oep_se: {
+                [key: string]: number | null;
+            };
+            /** Sd */
+            sd: number;
+            /** Tvar */
+            tvar: {
+                [key: string]: number;
+            };
+            /** Tvar Se */
+            tvar_se: {
+                [key: string]: number | null;
+            };
+            /** Var */
+            var: {
+                [key: string]: number;
+            };
         };
         /**
          * PortfolioConfig
@@ -497,6 +2203,158 @@ export interface components {
             /** Tiv Total */
             tiv_total: number;
         };
+        /** ReinsuranceConfig */
+        ReinsuranceConfig: {
+            /** Layers */
+            layers?: components["schemas"]["XoLLayer"][];
+            /**
+             * Quota Share
+             * @default 0
+             */
+            quota_share: number;
+        };
+        /** RunMeta */
+        RunMeta: {
+            config: components["schemas"]["AnalysisConfig"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Error */
+            error?: string | null;
+            /** Finished At */
+            finished_at?: string | null;
+            /** Id */
+            id: string;
+            /**
+             * Message
+             * @default
+             */
+            message: string;
+            /** Name */
+            name: string;
+            /** Portfolio Id */
+            portfolio_id: string;
+            /**
+             * Progress
+             * @default 0
+             */
+            progress: number;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "queued" | "running" | "done" | "failed";
+            summary?: components["schemas"]["RunSummary"] | null;
+        };
+        /** RunSummary */
+        RunSummary: {
+            /** Aal Elt */
+            aal_elt: {
+                [key: string]: number;
+            };
+            /** Elapsed S */
+            elapsed_s: number;
+            /** Metrics */
+            metrics: {
+                [key: string]: components["schemas"]["PerspectiveMetrics"];
+            };
+            /** N Events */
+            n_events: number;
+            /** N Loss Events */
+            n_loss_events: number;
+            /** N Occurrences */
+            n_occurrences: number;
+            /** N Years */
+            n_years: number;
+        };
+        /**
+         * ScenarioRequest
+         * @description A single deterministic event against a portfolio, with full secondary uncertainty.
+         *
+         *     ``event`` for QEQ: {lat, lon, magnitude, depth_km?, strike_deg?}
+         *     ``event`` for WTC: {lat, lon, vmax_ms, heading_deg?, rmax_km?, translation_ms?} (landfall)
+         *                        or {track: [{lat, lon, vmax_ms, rmax_km?, t_h?}, ...]}
+         */
+        ScenarioRequest: {
+            /**
+             * @default {
+             *       "field": "fft",
+             *       "model": "one_factor",
+             *       "range_km": 10,
+             *       "rho": 0.15,
+             *       "rho_by_construction": {}
+             *     }
+             */
+            damage_correlation: components["schemas"]["DamageCorrelationConfig"];
+            eq?: components["schemas"]["EqConfig"] | null;
+            /** Event */
+            event: {
+                [key: string]: unknown;
+            };
+            /**
+             * N Samples
+             * @default 64
+             */
+            n_samples: number;
+            /**
+             * Peril
+             * @enum {string}
+             */
+            peril: "QEQ" | "WTC";
+            /** Portfolio Id */
+            portfolio_id: string;
+            /**
+             * Seed
+             * @default 7
+             */
+            seed: number;
+            tc?: components["schemas"]["TcConfig"] | null;
+            /**
+             * Top
+             * @default 100
+             */
+            top: number;
+            vulnerability?: components["schemas"]["VulnerabilityConfig"] | null;
+        };
+        /** ScenarioResult */
+        ScenarioResult: {
+            /** By Hub */
+            by_hub: components["schemas"]["GroupLoss"][];
+            /** Elapsed Ms */
+            elapsed_ms: number;
+            /** Event Id */
+            event_id: number;
+            /** Footprint */
+            footprint: components["schemas"]["FootprintCell"][];
+            /** Geometry */
+            geometry: {
+                [key: string]: unknown;
+            };
+            gross: components["schemas"]["LossStats"];
+            gu: components["schemas"]["LossStats"];
+            /** N Affected */
+            n_affected: number;
+            /** Name */
+            name: string;
+            /** Peril */
+            peril: string;
+            /** Rate */
+            rate: number;
+            /** Samples Gross */
+            samples_gross: number[];
+            /** Samples Gu */
+            samples_gu: number[];
+            /** Summary */
+            summary: {
+                [key: string]: unknown;
+            };
+            /** Top Locations */
+            top_locations: components["schemas"]["LocationLoss"][];
+            /** Unit */
+            unit: string;
+        };
         /**
          * Storeys
          * @description Storey count = min + Geometric(p) - 1, truncated at max.
@@ -515,6 +2373,118 @@ export interface components {
              */
             p: number;
         };
+        /** TcConfig */
+        TcConfig: {
+            /**
+             * Annual Landfall Rate
+             * @description Hurricanes / year
+             * @default 1.7
+             */
+            annual_landfall_rate: number;
+            /**
+             * Decay Alpha
+             * @default 0.095
+             */
+            decay_alpha: number;
+            /**
+             * Decay R
+             * @default 0.9
+             */
+            decay_r: number;
+            /**
+             * Decay Vb
+             * @default 13.7
+             */
+            decay_vb: number;
+            /**
+             * @default {
+             *       "model": "fft",
+             *       "range_km": 60
+             *     }
+             */
+            field: components["schemas"]["FieldConfig"];
+            /** Gate */
+            gate?: [
+                number,
+                number
+            ][];
+            /** Gate Density */
+            gate_density?: number[];
+            /**
+             * Gate Spacing Km
+             * @default 100
+             */
+            gate_spacing_km: number;
+            /** Heading Offsets Deg */
+            heading_offsets_deg?: number[];
+            /** Heading Weights */
+            heading_weights?: number[];
+            /**
+             * Holland B
+             * @default 1.4
+             */
+            holland_b: number;
+            /**
+             * Hours After
+             * @default 36
+             */
+            hours_after: number;
+            /**
+             * Hours Before
+             * @default 24
+             */
+            hours_before: number;
+            /**
+             * Max Radius Km
+             * @default 400
+             */
+            max_radius_km: number;
+            /**
+             * Min Median Wind
+             * @default 20
+             */
+            min_median_wind: number;
+            /**
+             * Phi
+             * @default 0.12
+             */
+            phi: number;
+            /** Rmax Factors */
+            rmax_factors?: number[];
+            /** Rmax Weights */
+            rmax_weights?: number[];
+            /**
+             * Tau
+             * @default 0.08
+             */
+            tau: number;
+            /**
+             * Translation Ms
+             * @default 6
+             */
+            translation_ms: number;
+            /**
+             * Vmax Max
+             * @default 80
+             */
+            vmax_max: number;
+            /**
+             * Vmax Min
+             * @description m/s at landfall (Cat 1 ~ 33)
+             * @default 33
+             */
+            vmax_min: number;
+            /**
+             * Vmax Scale
+             * @default 14
+             */
+            vmax_scale: number;
+            /**
+             * Vmax Step
+             * @default 5
+             */
+            vmax_step: number;
+        };
         /** ValidationError */
         ValidationError: {
             /** Context */
@@ -527,6 +2497,106 @@ export interface components {
             msg: string;
             /** Error Type */
             type: string;
+        };
+        /** VulnerabilityConfig */
+        VulnerabilityConfig: {
+            /**
+             * Bi Factor
+             * @description BI DR = f * building DR (capped 1)
+             * @default 1.5
+             */
+            bi_factor: number;
+            /**
+             * Contents Factor
+             * @description Contents DR = f * building DR
+             * @default 1
+             */
+            contents_factor: number;
+            /** Curves */
+            curves?: {
+                [key: string]: {
+                    [key: string]: components["schemas"]["Curve"];
+                };
+            };
+            /**
+             * Secondary K
+             * @description sd = k * sqrt(m(1-m)) of the Beta damage
+             * @default 0.4
+             */
+            secondary_k: number;
+            /**
+             * Year Built Gamma
+             * @description Max +/- relative change in theta from building age
+             * @default 0.3
+             */
+            year_built_gamma: number;
+            /**
+             * Year Built Pivot
+             * @description Year with neutral code factor
+             * @default 1975
+             */
+            year_built_pivot: number;
+            /**
+             * Year Built Span
+             * @default 50
+             */
+            year_built_span: number;
+        };
+        /** Widget */
+        Widget: {
+            /**
+             * H
+             * @default 4
+             */
+            h: number;
+            /** Id */
+            id?: string;
+            /** Params */
+            params?: {
+                [key: string]: unknown;
+            };
+            /**
+             * Title
+             * @default
+             */
+            title: string;
+            /**
+             * Type
+             * @enum {string}
+             */
+            type: "kpi" | "ep" | "breakdown" | "treemap" | "heatmap" | "events" | "map" | "metrics" | "histogram";
+            /**
+             * W
+             * @default 6
+             */
+            w: number;
+            /**
+             * X
+             * @default 0
+             */
+            x: number;
+            /**
+             * Y
+             * @default 0
+             */
+            y: number;
+        };
+        /** XoLLayer */
+        XoLLayer: {
+            /** Limit */
+            limit: number;
+            /**
+             * Name
+             * @default Cat XoL
+             */
+            name: string;
+            /**
+             * Reinstatements
+             * @default 1
+             */
+            reinstatements: number;
+            /** Retention */
+            retention: number;
         };
         /** YearBuilt */
         YearBuilt: {
@@ -560,6 +2630,150 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    alerts_api_v1_alerts_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Alert"][];
+                };
+            };
+        };
+    };
+    alert_rules_api_v1_alerts_rules_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertRule"][];
+                };
+            };
+        };
+    };
+    upsert_rule_api_v1_alerts_rules_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AlertRule"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertRule"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_rule_api_v1_alerts_rules__rule_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rule_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    analysis_preset_list_api_v1_analysis_presets_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["AnalysisConfig"];
+                    };
+                };
+            };
+        };
+    };
+    capabilities_api_v1_capabilities_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Capabilities"];
+                };
+            };
+        };
+    };
     codes_api_v1_codes_get: {
         parameters: {
             query?: never;
@@ -576,6 +2790,296 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CodeLists"];
+                };
+            };
+        };
+    };
+    dashboards_list_api_v1_dashboards_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Dashboard"][];
+                };
+            };
+        };
+    };
+    dashboard_create_api_v1_dashboards_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DashboardIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Dashboard"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    dashboard_template_api_v1_dashboards_template_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DashboardIn"];
+                };
+            };
+        };
+    };
+    dashboard_get_api_v1_dashboards__did__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                did: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Dashboard"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    dashboard_put_api_v1_dashboards__did__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                did: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DashboardIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Dashboard"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    dashboard_delete_api_v1_dashboards__did__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                did: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    live_events_api_v1_live_events_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LiveEventState"][];
+                };
+            };
+        };
+    };
+    live_remove_api_v1_live_events__event_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    live_inject_api_v1_live_inject_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InjectRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LiveEventState"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    live_refresh_api_v1_live_refresh_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LiveEventState"][];
+                };
+            };
+        };
+    };
+    live_status_api_v1_live_status_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LiveStatus"];
                 };
             };
         };
@@ -828,6 +3332,412 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PortfolioConfig"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_runs_api_v1_runs_get: {
+        parameters: {
+            query?: {
+                portfolio_id?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RunMeta"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_run_api_v1_runs_post: {
+        parameters: {
+            query?: {
+                /** @description Block until finished */
+                wait?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRun"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RunMeta"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_run_api_v1_runs__rid__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RunMeta"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_run_api_v1_runs__rid__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_breakdown_api_v1_runs__rid__breakdown_get: {
+        parameters: {
+            query?: {
+                by?: "hub" | "occupancy" | "construction" | "country" | "peril" | "h3";
+                h3_res?: number | null;
+                peril?: string[] | null;
+                hub?: string[] | null;
+                occupancy?: number[] | null;
+                construction?: number[] | null;
+            };
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BreakdownRow"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_ep_api_v1_runs__rid__ep_get: {
+        parameters: {
+            query?: {
+                perspective?: "gu" | "gross" | "net";
+                peril?: string[] | null;
+                hub?: string[] | null;
+                occupancy?: number[] | null;
+                construction?: number[] | null;
+            };
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EPResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_events_api_v1_runs__rid__events_get: {
+        parameters: {
+            query?: {
+                peril?: string | null;
+                sort?: string;
+                limit?: number;
+                offset?: number;
+                min_loss?: number;
+            };
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_events_at_rp_api_v1_runs__rid__events_at_rp_get: {
+        parameters: {
+            query: {
+                rp: number;
+                curve?: "oep" | "aep";
+                perspective?: "gu" | "gross" | "net";
+                window?: number;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventsAtRP"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_event_api_v1_runs__rid__events__event_id__get: {
+        parameters: {
+            query?: {
+                top?: number;
+            };
+            header?: never;
+            path: {
+                rid: string;
+                event_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventDrill"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_file_api_v1_runs__rid__files__name__parquet_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/vnd.apache.parquet": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_locations_api_v1_runs__rid__locations_arrow_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Arrow IPC stream */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/vnd.apache.arrow.stream": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    scenario_api_v1_scenarios_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ScenarioRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioResult"];
                 };
             };
             /** @description Validation Error */

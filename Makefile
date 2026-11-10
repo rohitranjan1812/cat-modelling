@@ -1,4 +1,4 @@
-.PHONY: setup dev api web test lint schemas demo up down
+.PHONY: setup dev api web test lint schemas demo run bench up down
 
 setup:            ## install backend + web dependencies
 	cd backend && uv sync
@@ -23,6 +23,12 @@ schemas:          ## regenerate contracts and web types
 
 demo:             ## write a 50k-location OED demo portfolio to data/demo
 	cd backend && uv run catmod generate --preset us-cat-demo --out ../data/demo
+
+run:              ## quick stochastic analysis on the demo portfolio
+	cd backend && uv run catmod run --portfolio ../data/demo --preset quick --out ../data/demo-run
+
+bench:            ## compare damage-correlation models on the demo portfolio
+	cd backend && uv run catmod benchmark --portfolio ../data/demo --preset quick
 
 up:               ## full stack in Docker on :8080
 	docker compose up --build -d

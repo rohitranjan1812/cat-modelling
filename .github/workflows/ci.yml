@@ -56,6 +56,11 @@ jobs:
           docker compose up -d
           for i in $(seq 1 30); do curl -fs localhost:8080/health && break; sleep 2; done
           curl -fs -X POST localhost:8080/api/v1/portfolios -H 'content-type: application/json' \
-            -d '{"preset":"us-cat-demo","n_locations":5000}' | python3 -c "import json,sys; assert json.load(sys.stdin)['summary']['n_locations']==5000"
+            -d '{"preset":"us-cat-demo","n_locations":5000}' > p.json
+          python3 -c "import json; assert json.load(open('p.json'))['summary']['n_locations']==5000"
+          PID=$(python3 -c "import json; print(json.load(open('p.json'))['id'])")
+          curl -fs -X POST "localhost:8080/api/v1/runs?wait=true" -H 'content-type: application/json' \
+            -d "{\"portfolio_id\":\"$PID\",\"preset\":\"quick\",\"overrides\":{\"n_years\":2000}}" \
+            | python3 -c "import json,sys; d=json.load(sys.stdin); assert d['status']=='done', d"
       - if: always()
         run: docker compose logs && docker compose down -v

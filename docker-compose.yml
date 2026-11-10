@@ -3,6 +3,9 @@ services:
     build: { context: ., dockerfile: docker/api.Dockerfile }
     environment:
       CATMOD_CORS_ORIGINS: http://localhost:8080
+      CATMOD_LIVE: "1"                 # poll USGS / NHC and nowcast watched portfolios
+      CATMOD_LIVE_INTERVAL: "300"
+      # CATMOD_API_KEY: change-me      # uncomment to require x-api-key on /api and /ws
     volumes:
       - catmod-data:/data
     ports: ["8000:8000"]

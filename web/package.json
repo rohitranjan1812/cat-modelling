@@ -11,9 +11,17 @@
     "gen:api": "openapi-typescript ../schemas/openapi.json -o src/api/schema.d.ts"
   },
   "dependencies": {
+    "@deck.gl/core": "^9.4.1",
+    "@deck.gl/layers": "^9.4.1",
+    "@deck.gl/mapbox": "^9.4.1",
+    "apache-arrow": "^21.2.0",
+    "echarts": "^6.1.0",
+    "h3-js": "^4.5.0",
+    "maplibre-gl": "^6.17.0",
     "openapi-fetch": "^0.17.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "zustand": "^5.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",

@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen --no-dev --no-ins
 COPY backend/src ./src
 RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen --no-dev
 
-ENV PATH="/app/.venv/bin:$PATH" CATMOD_DATA_DIR=/data/portfolios
+ENV PATH="/app/.venv/bin:$PATH" CATMOD_DATA_DIR=/data
 RUN useradd --create-home --uid 10001 catmod && mkdir -p /data && chown catmod /data
 USER catmod
 EXPOSE 8000
