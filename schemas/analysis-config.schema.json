@@ -1,0 +1,1218 @@
+{
+  "$defs": {
+    "Curve": {
+      "additionalProperties": false,
+      "properties": {
+        "beta": {
+          "description": "Lognormal dispersion of the MDR curve",
+          "exclusiveMinimum": 0,
+          "maximum": 3,
+          "title": "Beta",
+          "type": "number"
+        },
+        "theta": {
+          "description": "Intensity at which MDR = 50%",
+          "exclusiveMinimum": 0,
+          "title": "Theta",
+          "type": "number"
+        }
+      },
+      "required": [
+        "theta",
+        "beta"
+      ],
+      "title": "Curve",
+      "type": "object"
+    },
+    "DamageCorrelationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "default": "fft",
+          "title": "Field",
+          "type": "string"
+        },
+        "model": {
+          "default": "one_factor",
+          "description": "independent | one_factor | spatial",
+          "title": "Model",
+          "type": "string"
+        },
+        "range_km": {
+          "default": 10.0,
+          "exclusiveMinimum": 0,
+          "title": "Range Km",
+          "type": "number"
+        },
+        "rho": {
+          "default": 0.15,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Rho",
+          "type": "number"
+        },
+        "rho_by_construction": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Rho By Construction",
+          "type": "object"
+        }
+      },
+      "title": "DamageCorrelationConfig",
+      "type": "object"
+    },
+    "EqConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "area_sites": {
+          "default": 12,
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Area Sites",
+          "type": "integer"
+        },
+        "dm": {
+          "default": 0.2,
+          "description": "Magnitude bin width",
+          "exclusiveMinimum": 0.01,
+          "maximum": 1.0,
+          "title": "Dm",
+          "type": "number"
+        },
+        "field": {
+          "$ref": "#/$defs/FieldConfig",
+          "default": {
+            "grid_km": null,
+            "model": "fft",
+            "range_km": 20.0
+          }
+        },
+        "gmm": {
+          "$ref": "#/$defs/GmmCoefficients",
+          "default": {
+            "a": 0.893,
+            "b": 0.715,
+            "c": -0.155,
+            "d": 0.004,
+            "h": 6.0,
+            "m_sat": 8.3,
+            "s": -0.5
+          }
+        },
+        "max_distance_km": {
+          "default": 300.0,
+          "exclusiveMinimum": 0,
+          "title": "Max Distance Km",
+          "type": "number"
+        },
+        "min_median_pga": {
+          "default": 0.01,
+          "description": "Prune sites below this (g)",
+          "minimum": 0,
+          "title": "Min Median Pga",
+          "type": "number"
+        },
+        "phi": {
+          "default": 0.55,
+          "minimum": 0,
+          "title": "Phi",
+          "type": "number"
+        },
+        "position_step_km": {
+          "default": 15.0,
+          "exclusiveMinimum": 1,
+          "title": "Position Step Km",
+          "type": "number"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/EqSource"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "tau": {
+          "default": 0.35,
+          "minimum": 0,
+          "title": "Tau",
+          "type": "number"
+        }
+      },
+      "title": "EqConfig",
+      "type": "object"
+    },
+    "EqSource": {
+      "additionalProperties": false,
+      "properties": {
+        "b_value": {
+          "default": 0.9,
+          "exclusiveMaximum": 2.0,
+          "exclusiveMinimum": 0.3,
+          "title": "B Value",
+          "type": "number"
+        },
+        "center": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Area zone (lat, lon)",
+          "title": "Center"
+        },
+        "kind": {
+          "enum": [
+            "fault",
+            "area"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "m_max": {
+          "maximum": 9.6,
+          "minimum": 4.0,
+          "title": "M Max",
+          "type": "number"
+        },
+        "m_min": {
+          "maximum": 9.5,
+          "minimum": 4.0,
+          "title": "M Min",
+          "type": "number"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "radius_km": {
+          "default": 60.0,
+          "exclusiveMinimum": 0,
+          "title": "Radius Km",
+          "type": "number"
+        },
+        "rate": {
+          "description": "Annual rate of M >= m_min",
+          "exclusiveMinimum": 0,
+          "title": "Rate",
+          "type": "number"
+        },
+        "trace": {
+          "description": "Fault trace (lat, lon) vertices",
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Trace",
+          "type": "array"
+        },
+        "ztor_km": {
+          "default": 0.0,
+          "description": "Depth to top of rupture",
+          "maximum": 80,
+          "minimum": 0,
+          "title": "Ztor Km",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "kind",
+        "m_min",
+        "m_max",
+        "rate"
+      ],
+      "title": "EqSource",
+      "type": "object"
+    },
+    "FieldConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "grid_km": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Grid Km"
+        },
+        "model": {
+          "default": "fft",
+          "title": "Model",
+          "type": "string"
+        },
+        "range_km": {
+          "default": 20.0,
+          "exclusiveMinimum": 0,
+          "title": "Range Km",
+          "type": "number"
+        }
+      },
+      "title": "FieldConfig",
+      "type": "object"
+    },
+    "GmmCoefficients": {
+      "additionalProperties": false,
+      "properties": {
+        "a": {
+          "default": 0.893,
+          "title": "A",
+          "type": "number"
+        },
+        "b": {
+          "default": 0.715,
+          "title": "B",
+          "type": "number"
+        },
+        "c": {
+          "default": -0.155,
+          "title": "C",
+          "type": "number"
+        },
+        "d": {
+          "default": 0.004,
+          "title": "D",
+          "type": "number"
+        },
+        "h": {
+          "default": 6.0,
+          "title": "H",
+          "type": "number"
+        },
+        "m_sat": {
+          "default": 8.3,
+          "title": "M Sat",
+          "type": "number"
+        },
+        "s": {
+          "default": -0.5,
+          "title": "S",
+          "type": "number"
+        }
+      },
+      "title": "GmmCoefficients",
+      "type": "object"
+    },
+    "ReinsuranceConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "layers": {
+          "items": {
+            "$ref": "#/$defs/XoLLayer"
+          },
+          "title": "Layers",
+          "type": "array"
+        },
+        "quota_share": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Quota Share",
+          "type": "number"
+        }
+      },
+      "title": "ReinsuranceConfig",
+      "type": "object"
+    },
+    "TcConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "annual_landfall_rate": {
+          "default": 1.7,
+          "description": "Hurricanes / year",
+          "exclusiveMinimum": 0,
+          "title": "Annual Landfall Rate",
+          "type": "number"
+        },
+        "decay_alpha": {
+          "default": 0.095,
+          "exclusiveMinimum": 0,
+          "title": "Decay Alpha",
+          "type": "number"
+        },
+        "decay_r": {
+          "default": 0.9,
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Decay R",
+          "type": "number"
+        },
+        "decay_vb": {
+          "default": 13.7,
+          "minimum": 0,
+          "title": "Decay Vb",
+          "type": "number"
+        },
+        "field": {
+          "$ref": "#/$defs/FieldConfig",
+          "default": {
+            "grid_km": null,
+            "model": "fft",
+            "range_km": 60.0
+          }
+        },
+        "gate": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Gate",
+          "type": "array"
+        },
+        "gate_density": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Gate Density",
+          "type": "array"
+        },
+        "gate_spacing_km": {
+          "default": 100.0,
+          "exclusiveMinimum": 5,
+          "title": "Gate Spacing Km",
+          "type": "number"
+        },
+        "heading_offsets_deg": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Heading Offsets Deg",
+          "type": "array"
+        },
+        "heading_weights": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Heading Weights",
+          "type": "array"
+        },
+        "holland_b": {
+          "default": 1.4,
+          "maximum": 2.5,
+          "minimum": 0.8,
+          "title": "Holland B",
+          "type": "number"
+        },
+        "hours_after": {
+          "default": 36,
+          "minimum": 1,
+          "title": "Hours After",
+          "type": "integer"
+        },
+        "hours_before": {
+          "default": 24,
+          "minimum": 0,
+          "title": "Hours Before",
+          "type": "integer"
+        },
+        "max_radius_km": {
+          "default": 400.0,
+          "exclusiveMinimum": 0,
+          "title": "Max Radius Km",
+          "type": "number"
+        },
+        "min_median_wind": {
+          "default": 20.0,
+          "minimum": 0,
+          "title": "Min Median Wind",
+          "type": "number"
+        },
+        "phi": {
+          "default": 0.12,
+          "minimum": 0,
+          "title": "Phi",
+          "type": "number"
+        },
+        "rmax_factors": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Rmax Factors",
+          "type": "array"
+        },
+        "rmax_weights": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Rmax Weights",
+          "type": "array"
+        },
+        "tau": {
+          "default": 0.08,
+          "minimum": 0,
+          "title": "Tau",
+          "type": "number"
+        },
+        "translation_ms": {
+          "default": 6.0,
+          "exclusiveMinimum": 0,
+          "title": "Translation Ms",
+          "type": "number"
+        },
+        "vmax_max": {
+          "default": 80.0,
+          "exclusiveMinimum": 10,
+          "title": "Vmax Max",
+          "type": "number"
+        },
+        "vmax_min": {
+          "default": 33.0,
+          "description": "m/s at landfall (Cat 1 ~ 33)",
+          "exclusiveMinimum": 10,
+          "title": "Vmax Min",
+          "type": "number"
+        },
+        "vmax_scale": {
+          "default": 14.0,
+          "exclusiveMinimum": 0,
+          "title": "Vmax Scale",
+          "type": "number"
+        },
+        "vmax_step": {
+          "default": 5.0,
+          "exclusiveMinimum": 0.5,
+          "title": "Vmax Step",
+          "type": "number"
+        }
+      },
+      "title": "TcConfig",
+      "type": "object"
+    },
+    "VulnerabilityConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "bi_factor": {
+          "default": 1.5,
+          "description": "BI DR = f * building DR (capped 1)",
+          "minimum": 0,
+          "title": "Bi Factor",
+          "type": "number"
+        },
+        "contents_factor": {
+          "default": 1.0,
+          "description": "Contents DR = f * building DR",
+          "minimum": 0,
+          "title": "Contents Factor",
+          "type": "number"
+        },
+        "curves": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "$ref": "#/$defs/Curve"
+            },
+            "type": "object"
+          },
+          "title": "Curves",
+          "type": "object"
+        },
+        "secondary_k": {
+          "default": 0.4,
+          "description": "sd = k * sqrt(m(1-m)) of the Beta damage",
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0,
+          "title": "Secondary K",
+          "type": "number"
+        },
+        "year_built_gamma": {
+          "default": 0.3,
+          "description": "Max +/- relative change in theta from building age",
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Year Built Gamma",
+          "type": "number"
+        },
+        "year_built_pivot": {
+          "default": 1975,
+          "description": "Year with neutral code factor",
+          "title": "Year Built Pivot",
+          "type": "integer"
+        },
+        "year_built_span": {
+          "default": 50.0,
+          "exclusiveMinimum": 0,
+          "title": "Year Built Span",
+          "type": "number"
+        }
+      },
+      "title": "VulnerabilityConfig",
+      "type": "object"
+    },
+    "XoLLayer": {
+      "additionalProperties": false,
+      "properties": {
+        "limit": {
+          "exclusiveMinimum": 0,
+          "title": "Limit",
+          "type": "number"
+        },
+        "name": {
+          "default": "Cat XoL",
+          "title": "Name",
+          "type": "string"
+        },
+        "reinstatements": {
+          "default": 1,
+          "maximum": 20,
+          "minimum": 0,
+          "title": "Reinstatements",
+          "type": "integer"
+        },
+        "retention": {
+          "minimum": 0,
+          "title": "Retention",
+          "type": "number"
+        }
+      },
+      "required": [
+        "retention",
+        "limit"
+      ],
+      "title": "XoLLayer",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "damage_correlation": {
+      "$ref": "#/$defs/DamageCorrelationConfig",
+      "default": {
+        "field": "fft",
+        "model": "one_factor",
+        "range_km": 10.0,
+        "rho": 0.15,
+        "rho_by_construction": {}
+      }
+    },
+    "eq": {
+      "$ref": "#/$defs/EqConfig",
+      "default": {
+        "area_sites": 12,
+        "dm": 0.2,
+        "field": {
+          "grid_km": null,
+          "model": "fft",
+          "range_km": 20.0
+        },
+        "gmm": {
+          "a": 0.893,
+          "b": 0.715,
+          "c": -0.155,
+          "d": 0.004,
+          "h": 6.0,
+          "m_sat": 8.3,
+          "s": -0.5
+        },
+        "max_distance_km": 300.0,
+        "min_median_pga": 0.01,
+        "phi": 0.55,
+        "position_step_km": 15.0,
+        "sources": [
+          {
+            "b_value": 0.9,
+            "center": null,
+            "kind": "fault",
+            "m_max": 8.0,
+            "m_min": 6.0,
+            "name": "San Andreas (south)",
+            "radius_km": 60.0,
+            "rate": 0.04,
+            "trace": [
+              [
+                33.35,
+                -115.7
+              ],
+              [
+                34.0,
+                -116.8
+              ],
+              [
+                34.35,
+                -117.6
+              ],
+              [
+                34.8,
+                -118.9
+              ],
+              [
+                35.7,
+                -120.3
+              ]
+            ],
+            "ztor_km": 0.0
+          },
+          {
+            "b_value": 0.9,
+            "center": null,
+            "kind": "fault",
+            "m_max": 7.9,
+            "m_min": 6.0,
+            "name": "San Andreas (north)",
+            "radius_km": 60.0,
+            "rate": 0.02,
+            "trace": [
+              [
+                36.8,
+                -121.5
+              ],
+              [
+                37.5,
+                -122.4
+              ],
+              [
+                38.3,
+                -123.1
+              ],
+              [
+                39.0,
+                -123.7
+              ]
+            ],
+            "ztor_km": 0.0
+          },
+          {
+            "b_value": 0.9,
+            "center": null,
+            "kind": "fault",
+            "m_max": 7.3,
+            "m_min": 6.0,
+            "name": "Hayward-Rodgers Creek",
+            "radius_km": 60.0,
+            "rate": 0.015,
+            "trace": [
+              [
+                37.4,
+                -121.9
+              ],
+              [
+                37.8,
+                -122.2
+              ],
+              [
+                38.2,
+                -122.6
+              ]
+            ],
+            "ztor_km": 0.0
+          },
+          {
+            "b_value": 0.9,
+            "center": null,
+            "kind": "fault",
+            "m_max": 7.5,
+            "m_min": 6.0,
+            "name": "San Jacinto",
+            "radius_km": 60.0,
+            "rate": 0.02,
+            "trace": [
+              [
+                32.8,
+                -115.6
+              ],
+              [
+                33.5,
+                -116.5
+              ],
+              [
+                34.1,
+                -117.3
+              ]
+            ],
+            "ztor_km": 0.0
+          },
+          {
+            "b_value": 0.9,
+            "center": null,
+            "kind": "fault",
+            "m_max": 7.2,
+            "m_min": 5.5,
+            "name": "Newport-Inglewood",
+            "radius_km": 60.0,
+            "rate": 0.01,
+            "trace": [
+              [
+                33.6,
+                -117.9
+              ],
+              [
+                34.0,
+                -118.4
+              ]
+            ],
+            "ztor_km": 0.0
+          },
+          {
+            "b_value": 0.9,
+            "center": null,
+            "kind": "fault",
+            "m_max": 7.1,
+            "m_min": 5.5,
+            "name": "Puente Hills thrust",
+            "radius_km": 60.0,
+            "rate": 0.008,
+            "trace": [
+              [
+                33.95,
+                -118.0
+              ],
+              [
+                34.05,
+                -118.35
+              ]
+            ],
+            "ztor_km": 3.0
+          },
+          {
+            "b_value": 0.9,
+            "center": null,
+            "kind": "fault",
+            "m_max": 7.0,
+            "m_min": 5.5,
+            "name": "Rose Canyon",
+            "radius_km": 60.0,
+            "rate": 0.003,
+            "trace": [
+              [
+                32.6,
+                -117.2
+              ],
+              [
+                33.0,
+                -117.3
+              ]
+            ],
+            "ztor_km": 0.0
+          },
+          {
+            "b_value": 0.9,
+            "center": null,
+            "kind": "fault",
+            "m_max": 7.4,
+            "m_min": 6.0,
+            "name": "Seattle fault",
+            "radius_km": 60.0,
+            "rate": 0.002,
+            "trace": [
+              [
+                47.55,
+                -122.9
+              ],
+              [
+                47.6,
+                -122.0
+              ]
+            ],
+            "ztor_km": 0.0
+          },
+          {
+            "b_value": 0.9,
+            "center": null,
+            "kind": "fault",
+            "m_max": 9.1,
+            "m_min": 8.0,
+            "name": "Cascadia subduction",
+            "radius_km": 60.0,
+            "rate": 0.002,
+            "trace": [
+              [
+                40.5,
+                -124.6
+              ],
+              [
+                43.0,
+                -124.8
+              ],
+              [
+                46.0,
+                -124.6
+              ],
+              [
+                48.3,
+                -125.2
+              ]
+            ],
+            "ztor_km": 10.0
+          },
+          {
+            "b_value": 0.9,
+            "center": [
+              34.05,
+              -118.25
+            ],
+            "kind": "area",
+            "m_max": 6.5,
+            "m_min": 5.0,
+            "name": "LA basin background",
+            "radius_km": 80.0,
+            "rate": 0.3,
+            "trace": [],
+            "ztor_km": 5.0
+          },
+          {
+            "b_value": 0.9,
+            "center": [
+              37.77,
+              -122.42
+            ],
+            "kind": "area",
+            "m_max": 6.5,
+            "m_min": 5.0,
+            "name": "SF Bay background",
+            "radius_km": 70.0,
+            "rate": 0.15,
+            "trace": [],
+            "ztor_km": 5.0
+          },
+          {
+            "b_value": 0.9,
+            "center": [
+              32.72,
+              -117.16
+            ],
+            "kind": "area",
+            "m_max": 6.5,
+            "m_min": 5.0,
+            "name": "San Diego background",
+            "radius_km": 60.0,
+            "rate": 0.05,
+            "trace": [],
+            "ztor_km": 5.0
+          },
+          {
+            "b_value": 0.9,
+            "center": [
+              47.4,
+              -122.5
+            ],
+            "kind": "area",
+            "m_max": 7.0,
+            "m_min": 5.0,
+            "name": "Puget Sound intraslab",
+            "radius_km": 80.0,
+            "rate": 0.05,
+            "trace": [],
+            "ztor_km": 45.0
+          }
+        ],
+        "tau": 0.35
+      }
+    },
+    "n_samples": {
+      "default": 8,
+      "description": "Samples per event",
+      "maximum": 512,
+      "minimum": 1,
+      "title": "N Samples",
+      "type": "integer"
+    },
+    "n_years": {
+      "default": 50000,
+      "maximum": 2000000,
+      "minimum": 100,
+      "title": "N Years",
+      "type": "integer"
+    },
+    "name": {
+      "default": "Stochastic analysis",
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "perils": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Perils",
+      "type": "array"
+    },
+    "plugins": {
+      "additionalProperties": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "description": "Config for plugin hazards keyed by peril code",
+      "title": "Plugins",
+      "type": "object"
+    },
+    "reinsurance": {
+      "$ref": "#/$defs/ReinsuranceConfig",
+      "default": {
+        "layers": [],
+        "quota_share": 0.0
+      }
+    },
+    "return_periods": {
+      "items": {
+        "type": "integer"
+      },
+      "title": "Return Periods",
+      "type": "array"
+    },
+    "seed": {
+      "default": 7,
+      "minimum": 0,
+      "title": "Seed",
+      "type": "integer"
+    },
+    "tc": {
+      "$ref": "#/$defs/TcConfig",
+      "default": {
+        "annual_landfall_rate": 1.7,
+        "decay_alpha": 0.095,
+        "decay_r": 0.9,
+        "decay_vb": 13.7,
+        "field": {
+          "grid_km": null,
+          "model": "fft",
+          "range_km": 60.0
+        },
+        "gate": [
+          [
+            25.95,
+            -97.15
+          ],
+          [
+            27.8,
+            -97.1
+          ],
+          [
+            29.3,
+            -94.8
+          ],
+          [
+            29.75,
+            -93.3
+          ],
+          [
+            29.25,
+            -90.7
+          ],
+          [
+            30.3,
+            -89.1
+          ],
+          [
+            30.35,
+            -87.2
+          ],
+          [
+            29.7,
+            -85.0
+          ],
+          [
+            29.1,
+            -83.0
+          ],
+          [
+            27.7,
+            -82.7
+          ],
+          [
+            26.1,
+            -81.8
+          ],
+          [
+            25.15,
+            -80.95
+          ],
+          [
+            25.8,
+            -80.13
+          ],
+          [
+            26.7,
+            -80.03
+          ],
+          [
+            28.4,
+            -80.6
+          ],
+          [
+            30.3,
+            -81.4
+          ],
+          [
+            32.0,
+            -80.85
+          ],
+          [
+            32.75,
+            -79.9
+          ],
+          [
+            33.7,
+            -78.85
+          ],
+          [
+            34.2,
+            -77.85
+          ],
+          [
+            35.2,
+            -75.55
+          ]
+        ],
+        "gate_density": [
+          1.0,
+          1.0,
+          1.1,
+          1.0,
+          1.2,
+          1.1,
+          1.2,
+          1.1,
+          0.8,
+          1.0,
+          1.3,
+          1.5,
+          1.5,
+          1.2,
+          0.9,
+          0.5,
+          0.4,
+          0.8,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "gate_spacing_km": 100.0,
+        "heading_offsets_deg": [
+          -30.0,
+          0.0,
+          30.0
+        ],
+        "heading_weights": [
+          0.25,
+          0.5,
+          0.25
+        ],
+        "holland_b": 1.4,
+        "hours_after": 36,
+        "hours_before": 24,
+        "max_radius_km": 400.0,
+        "min_median_wind": 20.0,
+        "phi": 0.12,
+        "rmax_factors": [
+          0.7,
+          1.4
+        ],
+        "rmax_weights": [
+          0.5,
+          0.5
+        ],
+        "tau": 0.08,
+        "translation_ms": 6.0,
+        "vmax_max": 80.0,
+        "vmax_min": 33.0,
+        "vmax_scale": 14.0,
+        "vmax_step": 5.0
+      }
+    },
+    "vulnerability": {
+      "$ref": "#/$defs/VulnerabilityConfig",
+      "default": {
+        "bi_factor": 1.5,
+        "contents_factor": 1.0,
+        "curves": {
+          "QEQ": {
+            "5000": {
+              "beta": 0.7,
+              "theta": 1.2
+            },
+            "5050": {
+              "beta": 0.7,
+              "theta": 1.6
+            },
+            "5100": {
+              "beta": 0.7,
+              "theta": 1.0
+            },
+            "5150": {
+              "beta": 0.7,
+              "theta": 1.4
+            },
+            "5200": {
+              "beta": 0.7,
+              "theta": 1.8
+            }
+          },
+          "WTC": {
+            "5000": {
+              "beta": 0.25,
+              "theta": 78.0
+            },
+            "5050": {
+              "beta": 0.25,
+              "theta": 75.0
+            },
+            "5100": {
+              "beta": 0.25,
+              "theta": 85.0
+            },
+            "5150": {
+              "beta": 0.25,
+              "theta": 95.0
+            },
+            "5200": {
+              "beta": 0.25,
+              "theta": 90.0
+            }
+          }
+        },
+        "secondary_k": 0.4,
+        "year_built_gamma": 0.3,
+        "year_built_pivot": 1975,
+        "year_built_span": 50.0
+      }
+    },
+    "workers": {
+      "default": 0,
+      "description": "Processes; 0 = auto (<= 8)",
+      "maximum": 64,
+      "minimum": 0,
+      "title": "Workers",
+      "type": "integer"
+    }
+  },
+  "title": "AnalysisConfig",
+  "type": "object"
+}

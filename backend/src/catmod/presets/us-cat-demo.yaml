@@ -8,10 +8,10 @@ portfolio_number: P1
 
 hubs:
   # --- Earthquake (QEQ): CA deductibles are typically 10-15% of TIV
-  - {name: Los Angeles,   lat: 34.0522, lon: -118.2437, weight: 0.20, scale_km: 22, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.30}
-  - {name: San Francisco, lat: 37.7749, lon: -122.4194, weight: 0.12, scale_km: 14, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.60}
-  - {name: San Diego,     lat: 32.7157, lon: -117.1611, weight: 0.06, scale_km: 12, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.20}
-  - {name: Seattle,       lat: 47.6062, lon: -122.3321, weight: 0.07, scale_km: 12, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.25}
+  - {name: Los Angeles,   lat: 34.0522, lon: -118.2437, weight: 0.20, scale_km: 22, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.30, vs30: 320}
+  - {name: San Francisco, lat: 37.7749, lon: -122.4194, weight: 0.12, scale_km: 14, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.60, vs30: 380}
+  - {name: San Diego,     lat: 32.7157, lon: -117.1611, weight: 0.06, scale_km: 12, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.20, vs30: 420}
+  - {name: Seattle,       lat: 47.6062, lon: -122.3321, weight: 0.07, scale_km: 12, perils: [QEQ], ded_pct_tiv: 0.10, value_index: 1.25, vs30: 340}
   # --- Tropical cyclone (WTC): hurricane deductibles typically 2-5% of TIV
   - name: Miami
     lat: 25.7617

@@ -111,6 +111,841 @@
         "title": "AggregateRow",
         "type": "object"
       },
+      "Alert": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "event_name": {
+            "title": "Event Name",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "live_event_id": {
+            "title": "Live Event Id",
+            "type": "string"
+          },
+          "metric": {
+            "enum": [
+              "mean_gross",
+              "p90_gross",
+              "p99_gross",
+              "mean_gu",
+              "p90_gu",
+              "n_affected"
+            ],
+            "title": "Metric",
+            "type": "string"
+          },
+          "portfolio_id": {
+            "title": "Portfolio Id",
+            "type": "string"
+          },
+          "rule_id": {
+            "title": "Rule Id",
+            "type": "string"
+          },
+          "rule_name": {
+            "title": "Rule Name",
+            "type": "string"
+          },
+          "threshold": {
+            "title": "Threshold",
+            "type": "number"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "rule_id",
+          "rule_name",
+          "live_event_id",
+          "event_name",
+          "portfolio_id",
+          "metric",
+          "value",
+          "threshold",
+          "created_at"
+        ],
+        "title": "Alert",
+        "type": "object"
+      },
+      "AlertRule": {
+        "properties": {
+          "enabled": {
+            "default": true,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "metric": {
+            "default": "p90_gross",
+            "enum": [
+              "mean_gross",
+              "p90_gross",
+              "p99_gross",
+              "mean_gu",
+              "p90_gu",
+              "n_affected"
+            ],
+            "title": "Metric",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "peril": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Peril"
+          },
+          "portfolio_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Portfolio Id"
+          },
+          "threshold": {
+            "minimum": 0.0,
+            "title": "Threshold",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "threshold"
+        ],
+        "title": "AlertRule",
+        "type": "object"
+      },
+      "AnalysisConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "damage_correlation": {
+            "$ref": "#/components/schemas/DamageCorrelationConfig",
+            "default": {
+              "field": "fft",
+              "model": "one_factor",
+              "range_km": 10.0,
+              "rho": 0.15,
+              "rho_by_construction": {}
+            }
+          },
+          "eq": {
+            "$ref": "#/components/schemas/EqConfig",
+            "default": {
+              "area_sites": 12,
+              "dm": 0.2,
+              "field": {
+                "model": "fft",
+                "range_km": 20.0
+              },
+              "gmm": {
+                "a": 0.893,
+                "b": 0.715,
+                "c": -0.155,
+                "d": 0.004,
+                "h": 6.0,
+                "m_sat": 8.3,
+                "s": -0.5
+              },
+              "max_distance_km": 300.0,
+              "min_median_pga": 0.01,
+              "phi": 0.55,
+              "position_step_km": 15.0,
+              "sources": [
+                {
+                  "b_value": 0.9,
+                  "kind": "fault",
+                  "m_max": 8.0,
+                  "m_min": 6.0,
+                  "name": "San Andreas (south)",
+                  "radius_km": 60.0,
+                  "rate": 0.04,
+                  "trace": [
+                    [
+                      33.35,
+                      -115.7
+                    ],
+                    [
+                      34.0,
+                      -116.8
+                    ],
+                    [
+                      34.35,
+                      -117.6
+                    ],
+                    [
+                      34.8,
+                      -118.9
+                    ],
+                    [
+                      35.7,
+                      -120.3
+                    ]
+                  ],
+                  "ztor_km": 0.0
+                },
+                {
+                  "b_value": 0.9,
+                  "kind": "fault",
+                  "m_max": 7.9,
+                  "m_min": 6.0,
+                  "name": "San Andreas (north)",
+                  "radius_km": 60.0,
+                  "rate": 0.02,
+                  "trace": [
+                    [
+                      36.8,
+                      -121.5
+                    ],
+                    [
+                      37.5,
+                      -122.4
+                    ],
+                    [
+                      38.3,
+                      -123.1
+                    ],
+                    [
+                      39.0,
+                      -123.7
+                    ]
+                  ],
+                  "ztor_km": 0.0
+                },
+                {
+                  "b_value": 0.9,
+                  "kind": "fault",
+                  "m_max": 7.3,
+                  "m_min": 6.0,
+                  "name": "Hayward-Rodgers Creek",
+                  "radius_km": 60.0,
+                  "rate": 0.015,
+                  "trace": [
+                    [
+                      37.4,
+                      -121.9
+                    ],
+                    [
+                      37.8,
+                      -122.2
+                    ],
+                    [
+                      38.2,
+                      -122.6
+                    ]
+                  ],
+                  "ztor_km": 0.0
+                },
+                {
+                  "b_value": 0.9,
+                  "kind": "fault",
+                  "m_max": 7.5,
+                  "m_min": 6.0,
+                  "name": "San Jacinto",
+                  "radius_km": 60.0,
+                  "rate": 0.02,
+                  "trace": [
+                    [
+                      32.8,
+                      -115.6
+                    ],
+                    [
+                      33.5,
+                      -116.5
+                    ],
+                    [
+                      34.1,
+                      -117.3
+                    ]
+                  ],
+                  "ztor_km": 0.0
+                },
+                {
+                  "b_value": 0.9,
+                  "kind": "fault",
+                  "m_max": 7.2,
+                  "m_min": 5.5,
+                  "name": "Newport-Inglewood",
+                  "radius_km": 60.0,
+                  "rate": 0.01,
+                  "trace": [
+                    [
+                      33.6,
+                      -117.9
+                    ],
+                    [
+                      34.0,
+                      -118.4
+                    ]
+                  ],
+                  "ztor_km": 0.0
+                },
+                {
+                  "b_value": 0.9,
+                  "kind": "fault",
+                  "m_max": 7.1,
+                  "m_min": 5.5,
+                  "name": "Puente Hills thrust",
+                  "radius_km": 60.0,
+                  "rate": 0.008,
+                  "trace": [
+                    [
+                      33.95,
+                      -118.0
+                    ],
+                    [
+                      34.05,
+                      -118.35
+                    ]
+                  ],
+                  "ztor_km": 3.0
+                },
+                {
+                  "b_value": 0.9,
+                  "kind": "fault",
+                  "m_max": 7.0,
+                  "m_min": 5.5,
+                  "name": "Rose Canyon",
+                  "radius_km": 60.0,
+                  "rate": 0.003,
+                  "trace": [
+                    [
+                      32.6,
+                      -117.2
+                    ],
+                    [
+                      33.0,
+                      -117.3
+                    ]
+                  ],
+                  "ztor_km": 0.0
+                },
+                {
+                  "b_value": 0.9,
+                  "kind": "fault",
+                  "m_max": 7.4,
+                  "m_min": 6.0,
+                  "name": "Seattle fault",
+                  "radius_km": 60.0,
+                  "rate": 0.002,
+                  "trace": [
+                    [
+                      47.55,
+                      -122.9
+                    ],
+                    [
+                      47.6,
+                      -122.0
+                    ]
+                  ],
+                  "ztor_km": 0.0
+                },
+                {
+                  "b_value": 0.9,
+                  "kind": "fault",
+                  "m_max": 9.1,
+                  "m_min": 8.0,
+                  "name": "Cascadia subduction",
+                  "radius_km": 60.0,
+                  "rate": 0.002,
+                  "trace": [
+                    [
+                      40.5,
+                      -124.6
+                    ],
+                    [
+                      43.0,
+                      -124.8
+                    ],
+                    [
+                      46.0,
+                      -124.6
+                    ],
+                    [
+                      48.3,
+                      -125.2
+                    ]
+                  ],
+                  "ztor_km": 10.0
+                },
+                {
+                  "b_value": 0.9,
+                  "center": [
+                    34.05,
+                    -118.25
+                  ],
+                  "kind": "area",
+                  "m_max": 6.5,
+                  "m_min": 5.0,
+                  "name": "LA basin background",
+                  "radius_km": 80.0,
+                  "rate": 0.3,
+                  "trace": [],
+                  "ztor_km": 5.0
+                },
+                {
+                  "b_value": 0.9,
+                  "center": [
+                    37.77,
+                    -122.42
+                  ],
+                  "kind": "area",
+                  "m_max": 6.5,
+                  "m_min": 5.0,
+                  "name": "SF Bay background",
+                  "radius_km": 70.0,
+                  "rate": 0.15,
+                  "trace": [],
+                  "ztor_km": 5.0
+                },
+                {
+                  "b_value": 0.9,
+                  "center": [
+                    32.72,
+                    -117.16
+                  ],
+                  "kind": "area",
+                  "m_max": 6.5,
+                  "m_min": 5.0,
+                  "name": "San Diego background",
+                  "radius_km": 60.0,
+                  "rate": 0.05,
+                  "trace": [],
+                  "ztor_km": 5.0
+                },
+                {
+                  "b_value": 0.9,
+                  "center": [
+                    47.4,
+                    -122.5
+                  ],
+                  "kind": "area",
+                  "m_max": 7.0,
+                  "m_min": 5.0,
+                  "name": "Puget Sound intraslab",
+                  "radius_km": 80.0,
+                  "rate": 0.05,
+                  "trace": [],
+                  "ztor_km": 45.0
+                }
+              ],
+              "tau": 0.35
+            }
+          },
+          "n_samples": {
+            "default": 8,
+            "description": "Samples per event",
+            "maximum": 512.0,
+            "minimum": 1.0,
+            "title": "N Samples",
+            "type": "integer"
+          },
+          "n_years": {
+            "default": 50000,
+            "maximum": 2000000.0,
+            "minimum": 100.0,
+            "title": "N Years",
+            "type": "integer"
+          },
+          "name": {
+            "default": "Stochastic analysis",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "perils": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Perils",
+            "type": "array"
+          },
+          "plugins": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "description": "Config for plugin hazards keyed by peril code",
+            "title": "Plugins",
+            "type": "object"
+          },
+          "reinsurance": {
+            "$ref": "#/components/schemas/ReinsuranceConfig",
+            "default": {
+              "layers": [],
+              "quota_share": 0.0
+            }
+          },
+          "return_periods": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Return Periods",
+            "type": "array"
+          },
+          "seed": {
+            "default": 7,
+            "minimum": 0.0,
+            "title": "Seed",
+            "type": "integer"
+          },
+          "tc": {
+            "$ref": "#/components/schemas/TcConfig",
+            "default": {
+              "annual_landfall_rate": 1.7,
+              "decay_alpha": 0.095,
+              "decay_r": 0.9,
+              "decay_vb": 13.7,
+              "field": {
+                "model": "fft",
+                "range_km": 60.0
+              },
+              "gate": [
+                [
+                  25.95,
+                  -97.15
+                ],
+                [
+                  27.8,
+                  -97.1
+                ],
+                [
+                  29.3,
+                  -94.8
+                ],
+                [
+                  29.75,
+                  -93.3
+                ],
+                [
+                  29.25,
+                  -90.7
+                ],
+                [
+                  30.3,
+                  -89.1
+                ],
+                [
+                  30.35,
+                  -87.2
+                ],
+                [
+                  29.7,
+                  -85.0
+                ],
+                [
+                  29.1,
+                  -83.0
+                ],
+                [
+                  27.7,
+                  -82.7
+                ],
+                [
+                  26.1,
+                  -81.8
+                ],
+                [
+                  25.15,
+                  -80.95
+                ],
+                [
+                  25.8,
+                  -80.13
+                ],
+                [
+                  26.7,
+                  -80.03
+                ],
+                [
+                  28.4,
+                  -80.6
+                ],
+                [
+                  30.3,
+                  -81.4
+                ],
+                [
+                  32.0,
+                  -80.85
+                ],
+                [
+                  32.75,
+                  -79.9
+                ],
+                [
+                  33.7,
+                  -78.85
+                ],
+                [
+                  34.2,
+                  -77.85
+                ],
+                [
+                  35.2,
+                  -75.55
+                ]
+              ],
+              "gate_density": [
+                1.0,
+                1.0,
+                1.1,
+                1.0,
+                1.2,
+                1.1,
+                1.2,
+                1.1,
+                0.8,
+                1.0,
+                1.3,
+                1.5,
+                1.5,
+                1.2,
+                0.9,
+                0.5,
+                0.4,
+                0.8,
+                0.9,
+                1.0,
+                1.1
+              ],
+              "gate_spacing_km": 100.0,
+              "heading_offsets_deg": [
+                -30.0,
+                0.0,
+                30.0
+              ],
+              "heading_weights": [
+                0.25,
+                0.5,
+                0.25
+              ],
+              "holland_b": 1.4,
+              "hours_after": 36,
+              "hours_before": 24,
+              "max_radius_km": 400.0,
+              "min_median_wind": 20.0,
+              "phi": 0.12,
+              "rmax_factors": [
+                0.7,
+                1.4
+              ],
+              "rmax_weights": [
+                0.5,
+                0.5
+              ],
+              "tau": 0.08,
+              "translation_ms": 6.0,
+              "vmax_max": 80.0,
+              "vmax_min": 33.0,
+              "vmax_scale": 14.0,
+              "vmax_step": 5.0
+            }
+          },
+          "vulnerability": {
+            "$ref": "#/components/schemas/VulnerabilityConfig",
+            "default": {
+              "bi_factor": 1.5,
+              "contents_factor": 1.0,
+              "curves": {
+                "QEQ": {
+                  "5000": {
+                    "beta": 0.7,
+                    "theta": 1.2
+                  },
+                  "5050": {
+                    "beta": 0.7,
+                    "theta": 1.6
+                  },
+                  "5100": {
+                    "beta": 0.7,
+                    "theta": 1.0
+                  },
+                  "5150": {
+                    "beta": 0.7,
+                    "theta": 1.4
+                  },
+                  "5200": {
+                    "beta": 0.7,
+                    "theta": 1.8
+                  }
+                },
+                "WTC": {
+                  "5000": {
+                    "beta": 0.25,
+                    "theta": 78.0
+                  },
+                  "5050": {
+                    "beta": 0.25,
+                    "theta": 75.0
+                  },
+                  "5100": {
+                    "beta": 0.25,
+                    "theta": 85.0
+                  },
+                  "5150": {
+                    "beta": 0.25,
+                    "theta": 95.0
+                  },
+                  "5200": {
+                    "beta": 0.25,
+                    "theta": 90.0
+                  }
+                }
+              },
+              "secondary_k": 0.4,
+              "year_built_gamma": 0.3,
+              "year_built_pivot": 1975,
+              "year_built_span": 50.0
+            }
+          },
+          "workers": {
+            "default": 0,
+            "description": "Processes; 0 = auto (<= 8)",
+            "maximum": 64.0,
+            "minimum": 0.0,
+            "title": "Workers",
+            "type": "integer"
+          }
+        },
+        "title": "AnalysisConfig",
+        "type": "object"
+      },
+      "BreakdownRow": {
+        "properties": {
+          "aal_gross": {
+            "title": "Aal Gross",
+            "type": "number"
+          },
+          "aal_gu": {
+            "title": "Aal Gu",
+            "type": "number"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          },
+          "n_locations": {
+            "title": "N Locations",
+            "type": "integer"
+          },
+          "tiv": {
+            "title": "Tiv",
+            "type": "number"
+          }
+        },
+        "required": [
+          "key",
+          "n_locations",
+          "tiv",
+          "aal_gu",
+          "aal_gross",
+          "lat",
+          "lon"
+        ],
+        "title": "BreakdownRow",
+        "type": "object"
+      },
+      "Capabilities": {
+        "properties": {
+          "analysis_presets": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Analysis Presets",
+            "type": "array"
+          },
+          "auth": {
+            "title": "Auth",
+            "type": "boolean"
+          },
+          "copulas": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Copulas",
+            "type": "array"
+          },
+          "hazards": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Hazards",
+            "type": "array"
+          },
+          "live_enabled": {
+            "title": "Live Enabled",
+            "type": "boolean"
+          },
+          "portfolio_presets": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Portfolio Presets",
+            "type": "array"
+          },
+          "spatial_fields": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Spatial Fields",
+            "type": "array"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "version",
+          "spatial_fields",
+          "copulas",
+          "hazards",
+          "analysis_presets",
+          "portfolio_presets",
+          "live_enabled",
+          "auth"
+        ],
+        "title": "Capabilities",
+        "type": "object"
+      },
       "CodeLists": {
         "properties": {
           "construction": {
@@ -217,6 +1052,866 @@
         "title": "CreatePortfolio",
         "type": "object"
       },
+      "CreateRun": {
+        "description": "Start an analysis from an analysis preset (with overrides) or a full config.",
+        "properties": {
+          "config": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AnalysisConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "overrides": {
+            "additionalProperties": true,
+            "description": "Shallow overrides applied on top of the preset",
+            "title": "Overrides",
+            "type": "object"
+          },
+          "portfolio_id": {
+            "title": "Portfolio Id",
+            "type": "string"
+          },
+          "preset": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "standard",
+            "title": "Preset"
+          }
+        },
+        "required": [
+          "portfolio_id"
+        ],
+        "title": "CreateRun",
+        "type": "object"
+      },
+      "Curve": {
+        "additionalProperties": false,
+        "properties": {
+          "beta": {
+            "description": "Lognormal dispersion of the MDR curve",
+            "exclusiveMinimum": 0.0,
+            "maximum": 3.0,
+            "title": "Beta",
+            "type": "number"
+          },
+          "theta": {
+            "description": "Intensity at which MDR = 50%",
+            "exclusiveMinimum": 0.0,
+            "title": "Theta",
+            "type": "number"
+          }
+        },
+        "required": [
+          "theta",
+          "beta"
+        ],
+        "title": "Curve",
+        "type": "object"
+      },
+      "CurvePoint": {
+        "properties": {
+          "aep": {
+            "title": "Aep",
+            "type": "number"
+          },
+          "oep": {
+            "title": "Oep",
+            "type": "number"
+          },
+          "rp": {
+            "title": "Rp",
+            "type": "number"
+          }
+        },
+        "required": [
+          "rp",
+          "oep",
+          "aep"
+        ],
+        "title": "CurvePoint",
+        "type": "object"
+      },
+      "DamageCorrelationConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "field": {
+            "default": "fft",
+            "title": "Field",
+            "type": "string"
+          },
+          "model": {
+            "default": "one_factor",
+            "description": "independent | one_factor | spatial",
+            "title": "Model",
+            "type": "string"
+          },
+          "range_km": {
+            "default": 10.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Range Km",
+            "type": "number"
+          },
+          "rho": {
+            "default": 0.15,
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Rho",
+            "type": "number"
+          },
+          "rho_by_construction": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Rho By Construction",
+            "type": "object"
+          }
+        },
+        "title": "DamageCorrelationConfig",
+        "type": "object"
+      },
+      "Dashboard": {
+        "properties": {
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "widgets": {
+            "items": {
+              "$ref": "#/components/schemas/Widget"
+            },
+            "title": "Widgets",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "id",
+          "updated_at"
+        ],
+        "title": "Dashboard",
+        "type": "object"
+      },
+      "DashboardIn": {
+        "properties": {
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "widgets": {
+            "items": {
+              "$ref": "#/components/schemas/Widget"
+            },
+            "title": "Widgets",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "DashboardIn",
+        "type": "object"
+      },
+      "EPResponse": {
+        "properties": {
+          "curve": {
+            "items": {
+              "$ref": "#/components/schemas/CurvePoint"
+            },
+            "title": "Curve",
+            "type": "array"
+          },
+          "filters": {
+            "$ref": "#/components/schemas/Filters"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/PerspectiveMetrics"
+          },
+          "n_years": {
+            "title": "N Years",
+            "type": "integer"
+          },
+          "perspective": {
+            "enum": [
+              "gu",
+              "gross",
+              "net"
+            ],
+            "title": "Perspective",
+            "type": "string"
+          }
+        },
+        "required": [
+          "perspective",
+          "filters",
+          "n_years",
+          "metrics",
+          "curve"
+        ],
+        "title": "EPResponse",
+        "type": "object"
+      },
+      "EqConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "area_sites": {
+            "default": 12,
+            "maximum": 500.0,
+            "minimum": 1.0,
+            "title": "Area Sites",
+            "type": "integer"
+          },
+          "dm": {
+            "default": 0.2,
+            "description": "Magnitude bin width",
+            "exclusiveMinimum": 0.01,
+            "maximum": 1.0,
+            "title": "Dm",
+            "type": "number"
+          },
+          "field": {
+            "$ref": "#/components/schemas/FieldConfig",
+            "default": {
+              "model": "fft",
+              "range_km": 20.0
+            }
+          },
+          "gmm": {
+            "$ref": "#/components/schemas/GmmCoefficients",
+            "default": {
+              "a": 0.893,
+              "b": 0.715,
+              "c": -0.155,
+              "d": 0.004,
+              "h": 6.0,
+              "m_sat": 8.3,
+              "s": -0.5
+            }
+          },
+          "max_distance_km": {
+            "default": 300.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Max Distance Km",
+            "type": "number"
+          },
+          "min_median_pga": {
+            "default": 0.01,
+            "description": "Prune sites below this (g)",
+            "minimum": 0.0,
+            "title": "Min Median Pga",
+            "type": "number"
+          },
+          "phi": {
+            "default": 0.55,
+            "minimum": 0.0,
+            "title": "Phi",
+            "type": "number"
+          },
+          "position_step_km": {
+            "default": 15.0,
+            "exclusiveMinimum": 1.0,
+            "title": "Position Step Km",
+            "type": "number"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/EqSource"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "tau": {
+            "default": 0.35,
+            "minimum": 0.0,
+            "title": "Tau",
+            "type": "number"
+          }
+        },
+        "title": "EqConfig",
+        "type": "object"
+      },
+      "EqSource": {
+        "additionalProperties": false,
+        "properties": {
+          "b_value": {
+            "default": 0.9,
+            "exclusiveMaximum": 2.0,
+            "exclusiveMinimum": 0.3,
+            "title": "B Value",
+            "type": "number"
+          },
+          "center": {
+            "anyOf": [
+              {
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Area zone (lat, lon)",
+            "title": "Center"
+          },
+          "kind": {
+            "enum": [
+              "fault",
+              "area"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "m_max": {
+            "maximum": 9.6,
+            "minimum": 4.0,
+            "title": "M Max",
+            "type": "number"
+          },
+          "m_min": {
+            "maximum": 9.5,
+            "minimum": 4.0,
+            "title": "M Min",
+            "type": "number"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "radius_km": {
+            "default": 60.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Radius Km",
+            "type": "number"
+          },
+          "rate": {
+            "description": "Annual rate of M >= m_min",
+            "exclusiveMinimum": 0.0,
+            "title": "Rate",
+            "type": "number"
+          },
+          "trace": {
+            "description": "Fault trace (lat, lon) vertices",
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "Trace",
+            "type": "array"
+          },
+          "ztor_km": {
+            "default": 0.0,
+            "description": "Depth to top of rupture",
+            "maximum": 80.0,
+            "minimum": 0.0,
+            "title": "Ztor Km",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "kind",
+          "m_min",
+          "m_max",
+          "rate"
+        ],
+        "title": "EqSource",
+        "type": "object"
+      },
+      "EventDrill": {
+        "properties": {
+          "by_hub": {
+            "items": {
+              "$ref": "#/components/schemas/GroupLoss"
+            },
+            "title": "By Hub",
+            "type": "array"
+          },
+          "event_id": {
+            "title": "Event Id",
+            "type": "integer"
+          },
+          "footprint": {
+            "items": {
+              "$ref": "#/components/schemas/FootprintCell"
+            },
+            "title": "Footprint",
+            "type": "array"
+          },
+          "geometry": {
+            "additionalProperties": true,
+            "title": "Geometry",
+            "type": "object"
+          },
+          "gross": {
+            "$ref": "#/components/schemas/LossStats"
+          },
+          "gu": {
+            "$ref": "#/components/schemas/LossStats"
+          },
+          "n_affected": {
+            "title": "N Affected",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "peril": {
+            "title": "Peril",
+            "type": "string"
+          },
+          "rate": {
+            "title": "Rate",
+            "type": "number"
+          },
+          "samples_gross": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Samples Gross",
+            "type": "array"
+          },
+          "samples_gu": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Samples Gu",
+            "type": "array"
+          },
+          "summary": {
+            "additionalProperties": true,
+            "title": "Summary",
+            "type": "object"
+          },
+          "top_locations": {
+            "items": {
+              "$ref": "#/components/schemas/LocationLoss"
+            },
+            "title": "Top Locations",
+            "type": "array"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event_id",
+          "peril",
+          "name",
+          "rate",
+          "unit",
+          "geometry",
+          "summary",
+          "n_affected",
+          "gu",
+          "gross",
+          "samples_gu",
+          "samples_gross",
+          "footprint",
+          "top_locations",
+          "by_hub"
+        ],
+        "title": "EventDrill",
+        "type": "object"
+      },
+      "EventRow": {
+        "properties": {
+          "event_id": {
+            "title": "Event Id",
+            "type": "integer"
+          },
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          },
+          "magnitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Magnitude"
+          },
+          "max_gross": {
+            "title": "Max Gross",
+            "type": "number"
+          },
+          "max_intensity": {
+            "title": "Max Intensity",
+            "type": "number"
+          },
+          "mean_gross": {
+            "title": "Mean Gross",
+            "type": "number"
+          },
+          "mean_gu": {
+            "title": "Mean Gu",
+            "type": "number"
+          },
+          "n_affected": {
+            "title": "N Affected",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "peril": {
+            "title": "Peril",
+            "type": "string"
+          },
+          "rate": {
+            "title": "Rate",
+            "type": "number"
+          },
+          "rp_equiv": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rp Equiv"
+          },
+          "sd_gross": {
+            "title": "Sd Gross",
+            "type": "number"
+          },
+          "vmax_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vmax Ms"
+          }
+        },
+        "required": [
+          "event_id",
+          "peril",
+          "name",
+          "rate",
+          "lat",
+          "lon",
+          "n_affected",
+          "max_intensity",
+          "mean_gu",
+          "mean_gross",
+          "sd_gross",
+          "max_gross"
+        ],
+        "title": "EventRow",
+        "type": "object"
+      },
+      "EventsAtRP": {
+        "properties": {
+          "curve": {
+            "enum": [
+              "oep",
+              "aep"
+            ],
+            "title": "Curve",
+            "type": "string"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/EventRow"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "level": {
+            "title": "Level",
+            "type": "number"
+          },
+          "occurrences": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Occurrences",
+            "type": "array"
+          },
+          "perspective": {
+            "enum": [
+              "gu",
+              "gross",
+              "net"
+            ],
+            "title": "Perspective",
+            "type": "string"
+          },
+          "rp": {
+            "title": "Rp",
+            "type": "number"
+          }
+        },
+        "required": [
+          "rp",
+          "curve",
+          "perspective",
+          "level",
+          "events",
+          "occurrences"
+        ],
+        "title": "EventsAtRP",
+        "type": "object"
+      },
+      "FieldConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "grid_km": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grid Km"
+          },
+          "model": {
+            "default": "fft",
+            "title": "Model",
+            "type": "string"
+          },
+          "range_km": {
+            "default": 20.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Range Km",
+            "type": "number"
+          }
+        },
+        "title": "FieldConfig",
+        "type": "object"
+      },
+      "Filters": {
+        "properties": {
+          "constructions": {
+            "default": [],
+            "items": {
+              "type": "integer"
+            },
+            "title": "Constructions",
+            "type": "array"
+          },
+          "hubs": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Hubs",
+            "type": "array"
+          },
+          "occupancies": {
+            "default": [],
+            "items": {
+              "type": "integer"
+            },
+            "title": "Occupancies",
+            "type": "array"
+          },
+          "perils": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Perils",
+            "type": "array"
+          }
+        },
+        "title": "Filters",
+        "type": "object"
+      },
+      "FootprintCell": {
+        "properties": {
+          "gross": {
+            "title": "Gross",
+            "type": "number"
+          },
+          "gu": {
+            "title": "Gu",
+            "type": "number"
+          },
+          "h3": {
+            "title": "H3",
+            "type": "string"
+          },
+          "intensity": {
+            "title": "Intensity",
+            "type": "number"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "h3",
+          "n",
+          "intensity",
+          "gu",
+          "gross"
+        ],
+        "title": "FootprintCell",
+        "type": "object"
+      },
+      "GmmCoefficients": {
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "default": 0.893,
+            "title": "A",
+            "type": "number"
+          },
+          "b": {
+            "default": 0.715,
+            "title": "B",
+            "type": "number"
+          },
+          "c": {
+            "default": -0.155,
+            "title": "C",
+            "type": "number"
+          },
+          "d": {
+            "default": 0.004,
+            "title": "D",
+            "type": "number"
+          },
+          "h": {
+            "default": 6.0,
+            "title": "H",
+            "type": "number"
+          },
+          "m_sat": {
+            "default": 8.3,
+            "title": "M Sat",
+            "type": "number"
+          },
+          "s": {
+            "default": -0.5,
+            "title": "S",
+            "type": "number"
+          }
+        },
+        "title": "GmmCoefficients",
+        "type": "object"
+      },
+      "GroupLoss": {
+        "properties": {
+          "gross": {
+            "title": "Gross",
+            "type": "number"
+          },
+          "gu": {
+            "title": "Gu",
+            "type": "number"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "key",
+          "n",
+          "gu",
+          "gross"
+        ],
+        "title": "GroupLoss",
+        "type": "object"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -317,6 +2012,14 @@
             "title": "Value Index",
             "type": "number"
           },
+          "vs30": {
+            "default": 400.0,
+            "description": "Median site Vs30 (m/s) for EQ site terms",
+            "exclusiveMinimum": 100.0,
+            "maximum": 2000.0,
+            "title": "Vs30",
+            "type": "number"
+          },
           "weight": {
             "description": "Relative share of portfolio locations at this hub",
             "exclusiveMinimum": 0.0,
@@ -332,6 +2035,476 @@
           "perils"
         ],
         "title": "Hub",
+        "type": "object"
+      },
+      "InjectRequest": {
+        "properties": {
+          "depth_km": {
+            "default": 10.0,
+            "maximum": 700.0,
+            "minimum": 0.0,
+            "title": "Depth Km",
+            "type": "number"
+          },
+          "heading_deg": {
+            "default": 300.0,
+            "title": "Heading Deg",
+            "type": "number"
+          },
+          "lat": {
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Lon",
+            "type": "number"
+          },
+          "magnitude": {
+            "anyOf": [
+              {
+                "maximum": 9.6,
+                "minimum": 4.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Magnitude"
+          },
+          "name": {
+            "default": "Simulated event",
+            "title": "Name",
+            "type": "string"
+          },
+          "peril": {
+            "enum": [
+              "QEQ",
+              "WTC"
+            ],
+            "title": "Peril",
+            "type": "string"
+          },
+          "speed_ms": {
+            "default": 5.0,
+            "exclusiveMinimum": 0.0,
+            "maximum": 30.0,
+            "title": "Speed Ms",
+            "type": "number"
+          },
+          "vmax_ms": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 10.0,
+                "maximum": 100.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vmax Ms"
+          }
+        },
+        "required": [
+          "peril",
+          "lat",
+          "lon"
+        ],
+        "title": "InjectRequest",
+        "type": "object"
+      },
+      "LiveEventState": {
+        "properties": {
+          "classification": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Classification"
+          },
+          "depth_km": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Depth Km"
+          },
+          "geometry": {
+            "additionalProperties": true,
+            "title": "Geometry",
+            "type": "object"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          },
+          "magnitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Magnitude"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "nowcasts": {
+            "items": {
+              "$ref": "#/components/schemas/Nowcast"
+            },
+            "title": "Nowcasts",
+            "type": "array"
+          },
+          "peril": {
+            "title": "Peril",
+            "type": "string"
+          },
+          "source": {
+            "enum": [
+              "usgs",
+              "nhc",
+              "simulated"
+            ],
+            "title": "Source",
+            "type": "string"
+          },
+          "specs": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Specs",
+            "type": "array"
+          },
+          "time": {
+            "format": "date-time",
+            "title": "Time",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "vmax_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vmax Ms"
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "peril",
+          "name",
+          "time",
+          "lat",
+          "lon",
+          "geometry",
+          "specs"
+        ],
+        "title": "LiveEventState",
+        "type": "object"
+      },
+      "LiveStatus": {
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "interval_s": {
+            "title": "Interval S",
+            "type": "integer"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          },
+          "last_refresh": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Refresh"
+          },
+          "n_events": {
+            "title": "N Events",
+            "type": "integer"
+          },
+          "sources": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Sources",
+            "type": "object"
+          }
+        },
+        "required": [
+          "enabled",
+          "interval_s",
+          "last_refresh",
+          "last_error",
+          "sources",
+          "n_events"
+        ],
+        "title": "LiveStatus",
+        "type": "object"
+      },
+      "LocationLoss": {
+        "properties": {
+          "acc_number": {
+            "title": "Acc Number",
+            "type": "string"
+          },
+          "construction": {
+            "title": "Construction",
+            "type": "integer"
+          },
+          "gross": {
+            "title": "Gross",
+            "type": "number"
+          },
+          "gu": {
+            "title": "Gu",
+            "type": "number"
+          },
+          "hub": {
+            "title": "Hub",
+            "type": "string"
+          },
+          "intensity": {
+            "title": "Intensity",
+            "type": "number"
+          },
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "layer_attachment": {
+            "title": "Layer Attachment",
+            "type": "number"
+          },
+          "layer_limit": {
+            "title": "Layer Limit",
+            "type": "number"
+          },
+          "layer_participation": {
+            "title": "Layer Participation",
+            "type": "number"
+          },
+          "loc_ded": {
+            "title": "Loc Ded",
+            "type": "number"
+          },
+          "loc_ded_type": {
+            "title": "Loc Ded Type",
+            "type": "integer"
+          },
+          "loc_limit": {
+            "title": "Loc Limit",
+            "type": "number"
+          },
+          "loc_number": {
+            "title": "Loc Number",
+            "type": "string"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          },
+          "occupancy": {
+            "title": "Occupancy",
+            "type": "integer"
+          },
+          "tiv": {
+            "title": "Tiv",
+            "type": "number"
+          },
+          "year_built": {
+            "title": "Year Built",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "loc_number",
+          "acc_number",
+          "lat",
+          "lon",
+          "hub",
+          "occupancy",
+          "construction",
+          "year_built",
+          "tiv",
+          "intensity",
+          "gu",
+          "gross",
+          "loc_ded",
+          "loc_ded_type",
+          "loc_limit",
+          "layer_attachment",
+          "layer_limit",
+          "layer_participation"
+        ],
+        "title": "LocationLoss",
+        "type": "object"
+      },
+      "LossStats": {
+        "properties": {
+          "max": {
+            "title": "Max",
+            "type": "number"
+          },
+          "mean": {
+            "title": "Mean",
+            "type": "number"
+          },
+          "p10": {
+            "title": "P10",
+            "type": "number"
+          },
+          "p50": {
+            "title": "P50",
+            "type": "number"
+          },
+          "p90": {
+            "title": "P90",
+            "type": "number"
+          },
+          "p99": {
+            "title": "P99",
+            "type": "number"
+          },
+          "sd": {
+            "title": "Sd",
+            "type": "number"
+          }
+        },
+        "required": [
+          "mean",
+          "sd",
+          "p10",
+          "p50",
+          "p90",
+          "p99",
+          "max"
+        ],
+        "title": "LossStats",
+        "type": "object"
+      },
+      "Nowcast": {
+        "properties": {
+          "by_hub": {
+            "items": {
+              "$ref": "#/components/schemas/GroupLoss"
+            },
+            "title": "By Hub",
+            "type": "array"
+          },
+          "computed_at": {
+            "format": "date-time",
+            "title": "Computed At",
+            "type": "string"
+          },
+          "elapsed_ms": {
+            "title": "Elapsed Ms",
+            "type": "number"
+          },
+          "footprint": {
+            "items": {
+              "$ref": "#/components/schemas/FootprintCell"
+            },
+            "title": "Footprint",
+            "type": "array"
+          },
+          "gross": {
+            "$ref": "#/components/schemas/LossStats"
+          },
+          "gu": {
+            "$ref": "#/components/schemas/LossStats"
+          },
+          "n_affected": {
+            "title": "N Affected",
+            "type": "integer"
+          },
+          "portfolio_id": {
+            "title": "Portfolio Id",
+            "type": "string"
+          },
+          "portfolio_name": {
+            "title": "Portfolio Name",
+            "type": "string"
+          },
+          "top_locations": {
+            "items": {
+              "$ref": "#/components/schemas/LocationLoss"
+            },
+            "title": "Top Locations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "portfolio_id",
+          "portfolio_name",
+          "n_affected",
+          "gu",
+          "gross",
+          "computed_at",
+          "elapsed_ms",
+          "footprint",
+          "top_locations",
+          "by_hub"
+        ],
+        "title": "Nowcast",
         "type": "object"
       },
       "OccupancyClass": {
@@ -404,6 +2577,27 @@
         "title": "OccupancyClass",
         "type": "object"
       },
+      "Page": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/EventRow"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total",
+          "items"
+        ],
+        "title": "Page",
+        "type": "object"
+      },
       "PerilExposure": {
         "properties": {
           "n_locations": {
@@ -425,6 +2619,113 @@
           "tiv"
         ],
         "title": "PerilExposure",
+        "type": "object"
+      },
+      "PerspectiveMetrics": {
+        "properties": {
+          "aal": {
+            "title": "Aal",
+            "type": "number"
+          },
+          "aal_se": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Aal Se"
+          },
+          "aep": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Aep",
+            "type": "object"
+          },
+          "aep_se": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Aep Se",
+            "type": "object"
+          },
+          "oep": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Oep",
+            "type": "object"
+          },
+          "oep_se": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Oep Se",
+            "type": "object"
+          },
+          "sd": {
+            "title": "Sd",
+            "type": "number"
+          },
+          "tvar": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Tvar",
+            "type": "object"
+          },
+          "tvar_se": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Tvar Se",
+            "type": "object"
+          },
+          "var": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Var",
+            "type": "object"
+          }
+        },
+        "required": [
+          "aal",
+          "aal_se",
+          "sd",
+          "oep",
+          "oep_se",
+          "aep",
+          "aep_se",
+          "var",
+          "tvar",
+          "tvar_se"
+        ],
+        "title": "PerspectiveMetrics",
         "type": "object"
       },
       "PortfolioConfig": {
@@ -638,6 +2939,355 @@
         "title": "PortfolioSummary",
         "type": "object"
       },
+      "ReinsuranceConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "layers": {
+            "items": {
+              "$ref": "#/components/schemas/XoLLayer"
+            },
+            "title": "Layers",
+            "type": "array"
+          },
+          "quota_share": {
+            "default": 0.0,
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Quota Share",
+            "type": "number"
+          }
+        },
+        "title": "ReinsuranceConfig",
+        "type": "object"
+      },
+      "RunMeta": {
+        "properties": {
+          "config": {
+            "$ref": "#/components/schemas/AnalysisConfig"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "portfolio_id": {
+            "title": "Portfolio Id",
+            "type": "string"
+          },
+          "progress": {
+            "default": 0.0,
+            "title": "Progress",
+            "type": "number"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "done",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RunSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "portfolio_id",
+          "name",
+          "status",
+          "created_at",
+          "config"
+        ],
+        "title": "RunMeta",
+        "type": "object"
+      },
+      "RunSummary": {
+        "properties": {
+          "aal_elt": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Aal Elt",
+            "type": "object"
+          },
+          "elapsed_s": {
+            "title": "Elapsed S",
+            "type": "number"
+          },
+          "metrics": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PerspectiveMetrics"
+            },
+            "title": "Metrics",
+            "type": "object"
+          },
+          "n_events": {
+            "title": "N Events",
+            "type": "integer"
+          },
+          "n_loss_events": {
+            "title": "N Loss Events",
+            "type": "integer"
+          },
+          "n_occurrences": {
+            "title": "N Occurrences",
+            "type": "integer"
+          },
+          "n_years": {
+            "title": "N Years",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "n_events",
+          "n_loss_events",
+          "n_occurrences",
+          "n_years",
+          "elapsed_s",
+          "aal_elt",
+          "metrics"
+        ],
+        "title": "RunSummary",
+        "type": "object"
+      },
+      "ScenarioRequest": {
+        "description": "A single deterministic event against a portfolio, with full secondary uncertainty.\n\n``event`` for QEQ: {lat, lon, magnitude, depth_km?, strike_deg?}\n``event`` for WTC: {lat, lon, vmax_ms, heading_deg?, rmax_km?, translation_ms?} (landfall)\n                   or {track: [{lat, lon, vmax_ms, rmax_km?, t_h?}, ...]}",
+        "properties": {
+          "damage_correlation": {
+            "$ref": "#/components/schemas/DamageCorrelationConfig",
+            "default": {
+              "field": "fft",
+              "model": "one_factor",
+              "range_km": 10.0,
+              "rho": 0.15,
+              "rho_by_construction": {}
+            }
+          },
+          "eq": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EqConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "event": {
+            "additionalProperties": true,
+            "title": "Event",
+            "type": "object"
+          },
+          "n_samples": {
+            "default": 64,
+            "maximum": 1000.0,
+            "minimum": 1.0,
+            "title": "N Samples",
+            "type": "integer"
+          },
+          "peril": {
+            "enum": [
+              "QEQ",
+              "WTC"
+            ],
+            "title": "Peril",
+            "type": "string"
+          },
+          "portfolio_id": {
+            "title": "Portfolio Id",
+            "type": "string"
+          },
+          "seed": {
+            "default": 7,
+            "minimum": 0.0,
+            "title": "Seed",
+            "type": "integer"
+          },
+          "tc": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TcConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "top": {
+            "default": 100,
+            "maximum": 2000.0,
+            "minimum": 1.0,
+            "title": "Top",
+            "type": "integer"
+          },
+          "vulnerability": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VulnerabilityConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "portfolio_id",
+          "peril",
+          "event"
+        ],
+        "title": "ScenarioRequest",
+        "type": "object"
+      },
+      "ScenarioResult": {
+        "properties": {
+          "by_hub": {
+            "items": {
+              "$ref": "#/components/schemas/GroupLoss"
+            },
+            "title": "By Hub",
+            "type": "array"
+          },
+          "elapsed_ms": {
+            "title": "Elapsed Ms",
+            "type": "number"
+          },
+          "event_id": {
+            "title": "Event Id",
+            "type": "integer"
+          },
+          "footprint": {
+            "items": {
+              "$ref": "#/components/schemas/FootprintCell"
+            },
+            "title": "Footprint",
+            "type": "array"
+          },
+          "geometry": {
+            "additionalProperties": true,
+            "title": "Geometry",
+            "type": "object"
+          },
+          "gross": {
+            "$ref": "#/components/schemas/LossStats"
+          },
+          "gu": {
+            "$ref": "#/components/schemas/LossStats"
+          },
+          "n_affected": {
+            "title": "N Affected",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "peril": {
+            "title": "Peril",
+            "type": "string"
+          },
+          "rate": {
+            "title": "Rate",
+            "type": "number"
+          },
+          "samples_gross": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Samples Gross",
+            "type": "array"
+          },
+          "samples_gu": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Samples Gu",
+            "type": "array"
+          },
+          "summary": {
+            "additionalProperties": true,
+            "title": "Summary",
+            "type": "object"
+          },
+          "top_locations": {
+            "items": {
+              "$ref": "#/components/schemas/LocationLoss"
+            },
+            "title": "Top Locations",
+            "type": "array"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event_id",
+          "peril",
+          "name",
+          "rate",
+          "unit",
+          "geometry",
+          "summary",
+          "n_affected",
+          "gu",
+          "gross",
+          "samples_gu",
+          "samples_gross",
+          "footprint",
+          "top_locations",
+          "by_hub",
+          "elapsed_ms"
+        ],
+        "title": "ScenarioResult",
+        "type": "object"
+      },
       "Storeys": {
         "additionalProperties": false,
         "description": "Storey count = min + Geometric(p) - 1, truncated at max.",
@@ -667,6 +3317,178 @@
           "max"
         ],
         "title": "Storeys",
+        "type": "object"
+      },
+      "TcConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "annual_landfall_rate": {
+            "default": 1.7,
+            "description": "Hurricanes / year",
+            "exclusiveMinimum": 0.0,
+            "title": "Annual Landfall Rate",
+            "type": "number"
+          },
+          "decay_alpha": {
+            "default": 0.095,
+            "exclusiveMinimum": 0.0,
+            "title": "Decay Alpha",
+            "type": "number"
+          },
+          "decay_r": {
+            "default": 0.9,
+            "exclusiveMinimum": 0.0,
+            "maximum": 1.0,
+            "title": "Decay R",
+            "type": "number"
+          },
+          "decay_vb": {
+            "default": 13.7,
+            "minimum": 0.0,
+            "title": "Decay Vb",
+            "type": "number"
+          },
+          "field": {
+            "$ref": "#/components/schemas/FieldConfig",
+            "default": {
+              "model": "fft",
+              "range_km": 60.0
+            }
+          },
+          "gate": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "Gate",
+            "type": "array"
+          },
+          "gate_density": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Gate Density",
+            "type": "array"
+          },
+          "gate_spacing_km": {
+            "default": 100.0,
+            "exclusiveMinimum": 5.0,
+            "title": "Gate Spacing Km",
+            "type": "number"
+          },
+          "heading_offsets_deg": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Heading Offsets Deg",
+            "type": "array"
+          },
+          "heading_weights": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Heading Weights",
+            "type": "array"
+          },
+          "holland_b": {
+            "default": 1.4,
+            "maximum": 2.5,
+            "minimum": 0.8,
+            "title": "Holland B",
+            "type": "number"
+          },
+          "hours_after": {
+            "default": 36,
+            "minimum": 1.0,
+            "title": "Hours After",
+            "type": "integer"
+          },
+          "hours_before": {
+            "default": 24,
+            "minimum": 0.0,
+            "title": "Hours Before",
+            "type": "integer"
+          },
+          "max_radius_km": {
+            "default": 400.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Max Radius Km",
+            "type": "number"
+          },
+          "min_median_wind": {
+            "default": 20.0,
+            "minimum": 0.0,
+            "title": "Min Median Wind",
+            "type": "number"
+          },
+          "phi": {
+            "default": 0.12,
+            "minimum": 0.0,
+            "title": "Phi",
+            "type": "number"
+          },
+          "rmax_factors": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Rmax Factors",
+            "type": "array"
+          },
+          "rmax_weights": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Rmax Weights",
+            "type": "array"
+          },
+          "tau": {
+            "default": 0.08,
+            "minimum": 0.0,
+            "title": "Tau",
+            "type": "number"
+          },
+          "translation_ms": {
+            "default": 6.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Translation Ms",
+            "type": "number"
+          },
+          "vmax_max": {
+            "default": 80.0,
+            "exclusiveMinimum": 10.0,
+            "title": "Vmax Max",
+            "type": "number"
+          },
+          "vmax_min": {
+            "default": 33.0,
+            "description": "m/s at landfall (Cat 1 ~ 33)",
+            "exclusiveMinimum": 10.0,
+            "title": "Vmax Min",
+            "type": "number"
+          },
+          "vmax_scale": {
+            "default": 14.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Vmax Scale",
+            "type": "number"
+          },
+          "vmax_step": {
+            "default": 5.0,
+            "exclusiveMinimum": 0.5,
+            "title": "Vmax Step",
+            "type": "number"
+          }
+        },
+        "title": "TcConfig",
         "type": "object"
       },
       "ValidationError": {
@@ -709,6 +3531,163 @@
         "title": "ValidationError",
         "type": "object"
       },
+      "VulnerabilityConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "bi_factor": {
+            "default": 1.5,
+            "description": "BI DR = f * building DR (capped 1)",
+            "minimum": 0.0,
+            "title": "Bi Factor",
+            "type": "number"
+          },
+          "contents_factor": {
+            "default": 1.0,
+            "description": "Contents DR = f * building DR",
+            "minimum": 0.0,
+            "title": "Contents Factor",
+            "type": "number"
+          },
+          "curves": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Curve"
+              },
+              "type": "object"
+            },
+            "title": "Curves",
+            "type": "object"
+          },
+          "secondary_k": {
+            "default": 0.4,
+            "description": "sd = k * sqrt(m(1-m)) of the Beta damage",
+            "exclusiveMaximum": 1.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Secondary K",
+            "type": "number"
+          },
+          "year_built_gamma": {
+            "default": 0.3,
+            "description": "Max +/- relative change in theta from building age",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Year Built Gamma",
+            "type": "number"
+          },
+          "year_built_pivot": {
+            "default": 1975,
+            "description": "Year with neutral code factor",
+            "title": "Year Built Pivot",
+            "type": "integer"
+          },
+          "year_built_span": {
+            "default": 50.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Year Built Span",
+            "type": "number"
+          }
+        },
+        "title": "VulnerabilityConfig",
+        "type": "object"
+      },
+      "Widget": {
+        "properties": {
+          "h": {
+            "default": 4,
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "H",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "params": {
+            "additionalProperties": true,
+            "title": "Params",
+            "type": "object"
+          },
+          "title": {
+            "default": "",
+            "title": "Title",
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "kpi",
+              "ep",
+              "breakdown",
+              "treemap",
+              "heatmap",
+              "events",
+              "map",
+              "metrics",
+              "histogram"
+            ],
+            "title": "Type",
+            "type": "string"
+          },
+          "w": {
+            "default": 6,
+            "maximum": 12.0,
+            "minimum": 1.0,
+            "title": "W",
+            "type": "integer"
+          },
+          "x": {
+            "default": 0,
+            "maximum": 11.0,
+            "minimum": 0.0,
+            "title": "X",
+            "type": "integer"
+          },
+          "y": {
+            "default": 0,
+            "minimum": 0.0,
+            "title": "Y",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "Widget",
+        "type": "object"
+      },
+      "XoLLayer": {
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "exclusiveMinimum": 0.0,
+            "title": "Limit",
+            "type": "number"
+          },
+          "name": {
+            "default": "Cat XoL",
+            "title": "Name",
+            "type": "string"
+          },
+          "reinstatements": {
+            "default": 1,
+            "maximum": 20.0,
+            "minimum": 0.0,
+            "title": "Reinstatements",
+            "type": "integer"
+          },
+          "retention": {
+            "minimum": 0.0,
+            "title": "Retention",
+            "type": "number"
+          }
+        },
+        "required": [
+          "retention",
+          "limit"
+        ],
+        "title": "XoLLayer",
+        "type": "object"
+      },
       "YearBuilt": {
         "additionalProperties": false,
         "properties": {
@@ -746,6 +3725,176 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/alerts": {
+      "get": {
+        "operationId": "alerts_api_v1_alerts_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Alert"
+                  },
+                  "title": "Response Alerts Api V1 Alerts Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Alerts",
+        "tags": [
+          "live"
+        ]
+      }
+    },
+    "/api/v1/alerts/rules": {
+      "get": {
+        "operationId": "alert_rules_api_v1_alerts_rules_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AlertRule"
+                  },
+                  "title": "Response Alert Rules Api V1 Alerts Rules Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Alert Rules",
+        "tags": [
+          "live"
+        ]
+      },
+      "post": {
+        "operationId": "upsert_rule_api_v1_alerts_rules_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlertRule"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertRule"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Upsert Rule",
+        "tags": [
+          "live"
+        ]
+      }
+    },
+    "/api/v1/alerts/rules/{rule_id}": {
+      "delete": {
+        "operationId": "delete_rule_api_v1_alerts_rules__rule_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rule_id",
+            "required": true,
+            "schema": {
+              "title": "Rule Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Rule",
+        "tags": [
+          "live"
+        ]
+      }
+    },
+    "/api/v1/analysis/presets": {
+      "get": {
+        "operationId": "analysis_preset_list_api_v1_analysis_presets_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/AnalysisConfig"
+                  },
+                  "title": "Response Analysis Preset List Api V1 Analysis Presets Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Analysis Preset List",
+        "tags": [
+          "reference"
+        ]
+      }
+    },
+    "/api/v1/capabilities": {
+      "get": {
+        "operationId": "capabilities_api_v1_capabilities_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Capabilities"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Capabilities",
+        "tags": [
+          "system"
+        ]
+      }
+    },
     "/api/v1/codes": {
       "get": {
         "operationId": "codes_api_v1_codes_get",
@@ -764,6 +3913,363 @@
         "summary": "Codes",
         "tags": [
           "reference"
+        ]
+      }
+    },
+    "/api/v1/dashboards": {
+      "get": {
+        "operationId": "dashboards_list_api_v1_dashboards_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Dashboard"
+                  },
+                  "title": "Response Dashboards List Api V1 Dashboards Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Dashboards List",
+        "tags": [
+          "dashboards"
+        ]
+      },
+      "post": {
+        "operationId": "dashboard_create_api_v1_dashboards_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DashboardIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dashboard"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Dashboard Create",
+        "tags": [
+          "dashboards"
+        ]
+      }
+    },
+    "/api/v1/dashboards/template": {
+      "get": {
+        "operationId": "dashboard_template_api_v1_dashboards_template_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardIn"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Dashboard Template",
+        "tags": [
+          "dashboards"
+        ]
+      }
+    },
+    "/api/v1/dashboards/{did}": {
+      "delete": {
+        "operationId": "dashboard_delete_api_v1_dashboards__did__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "did",
+            "required": true,
+            "schema": {
+              "title": "Did",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Dashboard Delete",
+        "tags": [
+          "dashboards"
+        ]
+      },
+      "get": {
+        "operationId": "dashboard_get_api_v1_dashboards__did__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "did",
+            "required": true,
+            "schema": {
+              "title": "Did",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dashboard"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Dashboard Get",
+        "tags": [
+          "dashboards"
+        ]
+      },
+      "put": {
+        "operationId": "dashboard_put_api_v1_dashboards__did__put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "did",
+            "required": true,
+            "schema": {
+              "title": "Did",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DashboardIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dashboard"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Dashboard Put",
+        "tags": [
+          "dashboards"
+        ]
+      }
+    },
+    "/api/v1/live/events": {
+      "get": {
+        "operationId": "live_events_api_v1_live_events_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LiveEventState"
+                  },
+                  "title": "Response Live Events Api V1 Live Events Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Live Events",
+        "tags": [
+          "live"
+        ]
+      }
+    },
+    "/api/v1/live/events/{event_id}": {
+      "delete": {
+        "operationId": "live_remove_api_v1_live_events__event_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "title": "Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Live Remove",
+        "tags": [
+          "live"
+        ]
+      }
+    },
+    "/api/v1/live/inject": {
+      "post": {
+        "operationId": "live_inject_api_v1_live_inject_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InjectRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiveEventState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Live Inject",
+        "tags": [
+          "live"
+        ]
+      }
+    },
+    "/api/v1/live/refresh": {
+      "post": {
+        "operationId": "live_refresh_api_v1_live_refresh_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LiveEventState"
+                  },
+                  "title": "Response Live Refresh Api V1 Live Refresh Post",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Live Refresh",
+        "tags": [
+          "live"
+        ]
+      }
+    },
+    "/api/v1/live/status": {
+      "get": {
+        "operationId": "live_status_api_v1_live_status_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiveStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Live Status",
+        "tags": [
+          "live"
         ]
       }
     },
@@ -1137,6 +4643,873 @@
         "summary": "Preset",
         "tags": [
           "reference"
+        ]
+      }
+    },
+    "/api/v1/runs": {
+      "get": {
+        "operationId": "list_runs_api_v1_runs_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "portfolio_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Portfolio Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/RunMeta"
+                  },
+                  "title": "Response List Runs Api V1 Runs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Runs",
+        "tags": [
+          "runs"
+        ]
+      },
+      "post": {
+        "operationId": "create_run_api_v1_runs_post",
+        "parameters": [
+          {
+            "description": "Block until finished",
+            "in": "query",
+            "name": "wait",
+            "required": false,
+            "schema": {
+              "default": false,
+              "description": "Block until finished",
+              "title": "Wait",
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRun"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunMeta"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Run",
+        "tags": [
+          "runs"
+        ]
+      }
+    },
+    "/api/v1/runs/{rid}": {
+      "delete": {
+        "operationId": "delete_run_api_v1_runs__rid__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rid",
+            "required": true,
+            "schema": {
+              "title": "Rid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Run",
+        "tags": [
+          "runs"
+        ]
+      },
+      "get": {
+        "operationId": "get_run_api_v1_runs__rid__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rid",
+            "required": true,
+            "schema": {
+              "title": "Rid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunMeta"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Run",
+        "tags": [
+          "runs"
+        ]
+      }
+    },
+    "/api/v1/runs/{rid}/breakdown": {
+      "get": {
+        "operationId": "run_breakdown_api_v1_runs__rid__breakdown_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rid",
+            "required": true,
+            "schema": {
+              "title": "Rid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "by",
+            "required": false,
+            "schema": {
+              "default": "hub",
+              "enum": [
+                "hub",
+                "occupancy",
+                "construction",
+                "country",
+                "peril",
+                "h3"
+              ],
+              "title": "By",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "h3_res",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maximum": 15,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "H3 Res"
+            }
+          },
+          {
+            "in": "query",
+            "name": "peril",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Peril"
+            }
+          },
+          {
+            "in": "query",
+            "name": "hub",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Hub"
+            }
+          },
+          {
+            "in": "query",
+            "name": "occupancy",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Occupancy"
+            }
+          },
+          {
+            "in": "query",
+            "name": "construction",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Construction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/BreakdownRow"
+                  },
+                  "title": "Response Run Breakdown Api V1 Runs  Rid  Breakdown Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Breakdown",
+        "tags": [
+          "runs"
+        ]
+      }
+    },
+    "/api/v1/runs/{rid}/ep": {
+      "get": {
+        "operationId": "run_ep_api_v1_runs__rid__ep_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rid",
+            "required": true,
+            "schema": {
+              "title": "Rid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "perspective",
+            "required": false,
+            "schema": {
+              "default": "gross",
+              "enum": [
+                "gu",
+                "gross",
+                "net"
+              ],
+              "title": "Perspective",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "peril",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Peril"
+            }
+          },
+          {
+            "in": "query",
+            "name": "hub",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Hub"
+            }
+          },
+          {
+            "in": "query",
+            "name": "occupancy",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Occupancy"
+            }
+          },
+          {
+            "in": "query",
+            "name": "construction",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Construction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EPResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Ep",
+        "tags": [
+          "runs"
+        ]
+      }
+    },
+    "/api/v1/runs/{rid}/events": {
+      "get": {
+        "operationId": "run_events_api_v1_runs__rid__events_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rid",
+            "required": true,
+            "schema": {
+              "title": "Rid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "peril",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Peril"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "default": "mean_gross",
+              "title": "Sort",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 1000,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "min_loss",
+            "required": false,
+            "schema": {
+              "default": 0.0,
+              "title": "Min Loss",
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Events",
+        "tags": [
+          "runs"
+        ]
+      }
+    },
+    "/api/v1/runs/{rid}/events-at-rp": {
+      "get": {
+        "operationId": "run_events_at_rp_api_v1_runs__rid__events_at_rp_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rid",
+            "required": true,
+            "schema": {
+              "title": "Rid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "rp",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 1,
+              "title": "Rp",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "curve",
+            "required": false,
+            "schema": {
+              "default": "oep",
+              "enum": [
+                "oep",
+                "aep"
+              ],
+              "title": "Curve",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "perspective",
+            "required": false,
+            "schema": {
+              "default": "gross",
+              "enum": [
+                "gu",
+                "gross",
+                "net"
+              ],
+              "title": "Perspective",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "window",
+            "required": false,
+            "schema": {
+              "default": 0.1,
+              "exclusiveMinimum": 0,
+              "maximum": 1,
+              "title": "Window",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventsAtRP"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Events At Rp",
+        "tags": [
+          "runs"
+        ]
+      }
+    },
+    "/api/v1/runs/{rid}/events/{event_id}": {
+      "get": {
+        "operationId": "run_event_api_v1_runs__rid__events__event_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rid",
+            "required": true,
+            "schema": {
+              "title": "Rid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "title": "Event Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "top",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "maximum": 2000,
+              "minimum": 1,
+              "title": "Top",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDrill"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Event",
+        "tags": [
+          "runs"
+        ]
+      }
+    },
+    "/api/v1/runs/{rid}/files/{name}.parquet": {
+      "get": {
+        "operationId": "run_file_api_v1_runs__rid__files__name__parquet_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rid",
+            "required": true,
+            "schema": {
+              "title": "Rid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "title": "Name",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.apache.parquet": {}
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run File",
+        "tags": [
+          "runs"
+        ]
+      }
+    },
+    "/api/v1/runs/{rid}/locations.arrow": {
+      "get": {
+        "operationId": "run_locations_api_v1_runs__rid__locations_arrow_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rid",
+            "required": true,
+            "schema": {
+              "title": "Rid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.apache.arrow.stream": {}
+            },
+            "description": "Arrow IPC stream"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Locations",
+        "tags": [
+          "runs"
+        ]
+      }
+    },
+    "/api/v1/scenarios": {
+      "post": {
+        "operationId": "scenario_api_v1_scenarios_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScenarioRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Scenario",
+        "tags": [
+          "scenarios"
         ]
       }
     },

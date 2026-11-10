@@ -148,6 +148,14 @@
           "title": "Value Index",
           "type": "number"
         },
+        "vs30": {
+          "default": 400.0,
+          "description": "Median site Vs30 (m/s) for EQ site terms",
+          "exclusiveMinimum": 100,
+          "maximum": 2000,
+          "title": "Vs30",
+          "type": "number"
+        },
         "weight": {
           "description": "Relative share of portfolio locations at this hub",
           "exclusiveMinimum": 0,

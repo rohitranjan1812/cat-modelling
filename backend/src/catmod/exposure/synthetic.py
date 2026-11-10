@@ -174,8 +174,12 @@ def generate(cfg: PortfolioConfig) -> Portfolio:
         "FlexiLocHub": pa.array(hub_names[hub_idx], pa.string()),
     }
     locations = pa.table(loc_cols, schema=oed.LOCATION_SCHEMA)
+    # Site condition: lognormal scatter around the hub median Vs30 (drawn last so that adding
+    # it did not perturb any earlier stream of the generator).
+    vs30 = np.round(np.array([h.vs30 for h in hubs])[hub_idx] * rng.lognormal(0.0, 0.25, size=n), 0)
     derived = {
         f"{oed.DERIVED_PREFIX}tiv": pa.array(tiv),
+        f"{oed.DERIVED_PREFIX}vs30": pa.array(np.clip(vs30, 150.0, 1500.0)),
         f"{oed.DERIVED_PREFIX}dist_km": pa.array(np.round(r_km, 3)),
         **{
             f"{oed.DERIVED_PREFIX}h3_r{res}": pa.array(h3_cells(lat, lon, res), pa.uint64())

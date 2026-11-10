@@ -20,6 +20,7 @@ import pyarrow.parquet as pq
 from pydantic import BaseModel
 
 from catmod.config import PortfolioConfig
+from catmod.engine.context import Exposure
 from catmod.exposure import generate
 from catmod.exposure.io import (
     ACCOUNT_PARQUET,
@@ -40,6 +41,7 @@ _DIM_SQL: Final[dict[str, str]] = {
 
 MAP_COLUMNS: Final[list[str]] = [
     "LocNumber",
+    "YearBuilt",
     "AccNumber",
     "Latitude",
     "Longitude",
@@ -78,6 +80,7 @@ class PortfolioStore:
         self.root.mkdir(parents=True, exist_ok=True)
         self._lock = threading.Lock()
         self._items: dict[str, PortfolioMeta] = {}
+        self._exposures: dict[str, Exposure] = {}
         for manifest in sorted(root.glob("*/manifest.json")):
             meta = PortfolioMeta.model_validate_json(manifest.read_text())
             self._items[meta.id] = meta
@@ -117,6 +120,7 @@ class PortfolioStore:
         self.get(pid)
         with self._lock:
             del self._items[pid]
+            self._exposures.pop(pid, None)
         shutil.rmtree(self._dir(pid), ignore_errors=True)
 
     def location_path(self, pid: str) -> Path:
@@ -157,6 +161,19 @@ class PortfolioStore:
             AggregateRow(key=str(k), n_locations=int(n), tiv=float(t), lat=float(la), lon=float(lo))
             for k, n, t, la, lo in rows
         ]
+
+    def exposure(self, pid: str) -> Exposure:
+        """Engine view of a portfolio, cached (a handful of portfolios fit comfortably)."""
+        self.get(pid)
+        with self._lock:
+            if pid in self._exposures:
+                return self._exposures[pid]
+        x = Exposure.from_dir(self._dir(pid))
+        with self._lock:
+            if len(self._exposures) >= 4:
+                self._exposures.pop(next(iter(self._exposures)))
+            self._exposures[pid] = x
+        return x
 
     def map_table(self, pid: str) -> pa.Table:
         return pq.read_table(self.location_path(pid), columns=MAP_COLUMNS)

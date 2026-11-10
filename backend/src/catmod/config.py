@@ -49,6 +49,9 @@ class Hub(StrictModel):
     perils: list[str] = Field(min_length=1, description="OED peril codes covered at this hub")
     ded_pct_tiv: float = Field(default=0.02, ge=0, le=0.5, description="Location deductible, %TIV")
     value_index: float = Field(default=1.0, gt=0, description="Replacement-cost multiplier")
+    vs30: float = Field(
+        default=400.0, gt=100, le=2000, description="Median site Vs30 (m/s) for EQ site terms"
+    )
     construction_override: dict[int, Mix] = Field(
         default_factory=dict,
         description="Per-occupancy construction mix overriding the global one at this hub",

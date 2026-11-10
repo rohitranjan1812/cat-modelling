@@ -30,7 +30,12 @@ def export_all(out_dir: Path) -> list[Path]:
     )
     with tempfile.TemporaryDirectory() as tmp:
         openapi = create_app(data_dir=Path(tmp)).openapi()
+    from catmod.engine.runner import AnalysisConfig
+
+    an_schema = AnalysisConfig.model_json_schema()
+    an_schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
     return [
         _dump(cfg_schema, out_dir / "portfolio-config.schema.json"),
+        _dump(an_schema, out_dir / "analysis-config.schema.json"),
         _dump(openapi, out_dir / "openapi.json"),
     ]

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import time
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any
 
 import typer
 
@@ -54,6 +54,109 @@ def generate(
     )
     for path in paths:
         typer.echo(f"  wrote {path}")
+
+
+def _exposure(portfolio: Path) -> Any:
+    from catmod.engine.context import Exposure
+
+    return Exposure.from_dir(portfolio)
+
+
+def _analysis(preset: str, config: Path | None) -> Any:
+    import yaml
+
+    from catmod.engine.drill import analysis_presets
+    from catmod.engine.runner import AnalysisConfig
+
+    if config:
+        return AnalysisConfig.model_validate(yaml.safe_load(config.read_text()))
+    presets = analysis_presets()
+    if preset not in presets:
+        raise typer.BadParameter(f"unknown preset {preset!r}; have {sorted(presets)}")
+    return presets[preset]
+
+
+@app.command()
+def run(
+    portfolio: Annotated[Path, typer.Option(exists=True, help="Portfolio dir (Parquet)")],
+    out: Annotated[Path, typer.Option(help="Output directory for run tables")],
+    preset: Annotated[str, typer.Option(help="Analysis preset")] = "standard",
+    config: Annotated[Path | None, typer.Option(exists=True, help="Analysis YAML")] = None,
+) -> None:
+    """Run a stochastic analysis and write ELT/YLT/metrics."""
+    from catmod.engine.runner import run_analysis
+
+    cfg = _analysis(preset, config)
+    x = _exposure(portfolio)
+    res = run_analysis(x, cfg, lambda f, m: typer.echo(f"\r{f:6.1%} {m:<40}", nl=False))
+    typer.echo("")
+    res.save(out)
+    for name, m in res.summary.metrics.items():
+        typer.echo(
+            f"{name:>6}: AAL {m.aal:>16,.0f}  OEP100 {m.oep.get('100', 0):>16,.0f}  "
+            f"OEP250 {m.oep.get('250', 0):>16,.0f}  TVaR99 {m.tvar.get('0.99', 0):>16,.0f}"
+        )
+    typer.echo(f"wrote {out} in {res.summary.elapsed_s}s")
+
+
+@app.command()
+def benchmark(
+    portfolio: Annotated[Path, typer.Option(exists=True, help="Portfolio dir (Parquet)")],
+    preset: Annotated[str, typer.Option(help="Analysis preset")] = "quick",
+    rho: Annotated[float, typer.Option(help="Damage correlation strength")] = 0.3,
+) -> None:
+    """Compare damage-correlation models on the same portfolio and catalogue.
+
+    AAL must agree (copulas preserve marginals); the tail metrics show how much the dependence
+    assumption matters for this portfolio.
+    """
+    from catmod.engine.runner import AnalysisConfig, run_analysis
+
+    base = _analysis(preset, None)
+    x = _exposure(portfolio)
+    typer.echo(f"{'model':<14}{'AAL':>16}{'OEP100':>16}{'OEP250':>16}{'TVaR99':>16}{'sd':>16}")
+    for model in ("independent", "one_factor", "spatial"):
+        cfg = AnalysisConfig.model_validate(
+            {**base.model_dump(), "damage_correlation": {"model": model, "rho": rho}}
+        )
+        m = run_analysis(x, cfg).summary.metrics["gross"]
+        typer.echo(
+            f"{model:<14}{m.aal:>16,.0f}{m.oep['100']:>16,.0f}{m.oep['250']:>16,.0f}"
+            f"{m.tvar['0.99']:>16,.0f}{m.sd:>16,.0f}"
+        )
+
+
+@app.command()
+def scenario(
+    portfolio: Annotated[Path, typer.Option(exists=True, help="Portfolio dir (Parquet)")],
+    peril: Annotated[str, typer.Option(help="QEQ or WTC")],
+    event: Annotated[
+        str, typer.Option(help='Event spec JSON, e.g. {"lat":34,"lon":-118.3,"magnitude":7}')
+    ],
+    samples: int = 200,
+) -> None:
+    """Run one deterministic event with secondary uncertainty; print loss statistics."""
+    import json
+
+    from catmod.engine.drill import drill
+    from catmod.engine.runner import AnalysisConfig, Engine
+
+    x = _exposure(portfolio)
+    eng = Engine(x, AnalysisConfig(perils=[peril], n_samples=samples, workers=1))
+    hz = eng.hazards[peril]
+    d = drill(
+        x,
+        eng.event_loss(hz.event_from_spec(json.loads(event), 9_000_001), samples),
+        hz.unit,
+        top=10,
+    )
+    typer.echo(f"{d.name}: {d.n_affected:,} locations affected")
+    for k in ("gu", "gross"):
+        st = getattr(d, k)
+        typer.echo(
+            f"  {k:>5}: mean {st.mean:,.0f}  p50 {st.p50:,.0f}  p90 {st.p90:,.0f}  "
+            f"p99 {st.p99:,.0f}"
+        )
 
 
 @app.command("export-schemas")

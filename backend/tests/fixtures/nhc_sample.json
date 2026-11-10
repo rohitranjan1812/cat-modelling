@@ -1,0 +1,34 @@
+{
+ "activeStorms": [
+  {
+   "id": "cp042026",
+   "binNumber": "CP4",
+   "name": "Pena",
+   "classification": "TS",
+   "intensity": "35",
+   "pressure": "1004",
+   "latitude": "11.7N",
+   "longitude": "162.7W",
+   "latitudeNumeric": 11.7,
+   "longitudeNumeric": -162.7,
+   "movementDir": 275,
+   "movementSpeed": 14,
+   "lastUpdate": "2026-11-10T03:00:00.000Z"
+  },
+  {
+   "id": "al992026",
+   "binNumber": "AT9",
+   "name": "Fixture",
+   "classification": "HU",
+   "intensity": "105",
+   "pressure": "960",
+   "latitude": "24.0N",
+   "longitude": "78.5W",
+   "latitudeNumeric": 24.0,
+   "longitudeNumeric": -78.5,
+   "movementDir": 290,
+   "movementSpeed": 12,
+   "lastUpdate": "2026-11-10T03:00:00.000Z"
+  }
+ ]
+}
